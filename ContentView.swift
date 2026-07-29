@@ -66,6 +66,18 @@ struct ContentView: View {
 
     // Production Setup sheet
     @State private var showingProductionSetup = false
+    @State private var showingConflictReport = false
+    @State private var conflictReportResults: [ScheduleConflict] = []
+    /// Set to trigger the calendar scrolling to a specific date — used when jumping to a
+    /// conflict from the report. Reset to nil right after the calendar handles it.
+    @State private var scrollToDate: Date? = nil
+    /// Cached like sortedScenes — recomputed only on relevant changes rather than on every
+    /// render, so the red-strip/warning-badge check doesn't re-scan the whole schedule on
+    /// every interaction. This is the "autoscan": conflicts are recomputed automatically
+    /// any time scenes, the schedule, or cast availability changes, with no need to
+    /// manually trigger a scan — Scan for Conflicts… just opens the full report on demand.
+    @State private var conflictDates: Set<Date> = []
+    @State private var conflictSceneIDs: Set<UUID> = []
 
     // Boneyard sort — persisted so your preferred sort (e.g. Location) is still
     // applied the next time you open the project.
@@ -123,14 +135,25 @@ struct ContentView: View {
             ProductionSetupSheet(
                 productionInfo: $productionInfo,
                 isPresented: $showingProductionSetup,
-                onSave: { markDirty() },
+                onSave: { markDirty(); recomputeConflicts() },
                 onCharacterRenamed: renameCastCharacter
+            )
+        }
+        .sheet(isPresented: $showingConflictReport) {
+            ConflictReportSheet(
+                conflicts: conflictReportResults,
+                onSelectDate: { date in
+                    showingConflictReport = false
+                    scrollToDate = date
+                },
+                onDismiss: { showingConflictReport = false }
             )
         }
         .onAppear {
             loadDefaultProject()
             restoreCurrentFileURL()
             recomputeSortedScenes()
+            recomputeConflicts()
         }
         .onReceive(NotificationCenter.default.publisher(for: .csNewProject)) { _ in
             showingClearAllConfirmation = true
@@ -160,9 +183,14 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: .csOpenProductionSetup)) { _ in
             showingProductionSetup = true
         }
+        .onReceive(NotificationCenter.default.publisher(for: .csScanForConflicts)) { _ in
+            conflictReportResults = ConflictScanner.scan(shootDays: shootDays, productionInfo: productionInfo)
+            showingConflictReport = true
+        }
         .onChange(of: allScenes) { _, _ in
             recomputeSortedScenes()
             pruneSelection()
+            recomputeConflicts()
         }
         .onChange(of: boneyardSort) { _, _ in
             recomputeSortedScenes()
@@ -278,11 +306,16 @@ struct ContentView: View {
 
     // MARK: - Boneyard sort helpers
 
-    /// Strips a leading scene number ("7. ", "12A. ") from a title for sorting purposes.
-    /// Selection is shared between the Boneyard and the calendar, so a scene counts as
-    /// "still present" if it's in either allScenes (Boneyard) or any day's scene list —
-    /// otherwise a selected calendar scene would get silently deselected any time an
-    /// unrelated Boneyard scene was added or removed.
+    /// Re-scans the schedule against Production Setup's cast availability. Cached into
+    /// conflictDates/conflictSceneIDs (like sortedScenes) rather than recomputed on every
+    /// render, and called from every place that could change the answer: loading a
+    /// project, any calendar-side scene move, and saving Production Setup.
+    private func recomputeConflicts() {
+        let conflicts = ConflictScanner.scan(shootDays: shootDays, productionInfo: productionInfo)
+        conflictDates = ConflictScanner.conflictDates(conflicts)
+        conflictSceneIDs = ConflictScanner.conflictSceneIDs(conflicts)
+    }
+
     private func pruneSelection() {
         let scheduledIDs = Set(shootDays.flatMap { $0.scenes.map(\.id) })
         let boneyardIDs  = Set(allScenes.map(\.id))
@@ -537,7 +570,10 @@ struct ContentView: View {
                 isSidebarCollapsed: isSidebarCollapsed,
                 selectedSceneIDs: $selectedSceneIDs,
                 lastSelectedSceneID: $lastSelectedSceneID,
-                onSceneChanged: { markDirty(); pruneSelection() },
+                conflictDates: conflictDates,
+                conflictSceneIDs: conflictSceneIDs,
+                scrollToDate: $scrollToDate,
+                onSceneChanged: { markDirty(); pruneSelection(); recomputeConflicts() },
                 onCallSheetExport: { day in
                     showCallSheetPDFSavePanel(for: day)
                 }

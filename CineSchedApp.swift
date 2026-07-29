@@ -84,6 +84,11 @@ struct CineSchedApp: App {
                     NotificationCenter.default.post(name: .csOpenProductionSetup, object: nil)
                 }
                 .keyboardShortcut("p", modifiers: [.command, .shift])
+
+                Button("Scan for Conflicts…") {
+                    NotificationCenter.default.post(name: .csScanForConflicts, object: nil)
+                }
+                .keyboardShortcut("k", modifiers: [.command, .shift])
             }
 
             // View menu — Dark Mode, alongside the automatic Toggle Sidebar item

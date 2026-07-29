@@ -19,6 +19,7 @@ struct ProductionSetupSheet: View {
     @State private var crew:          [CrewMember] = []
 
     @State private var newActorName:          String = ""
+    @State private var availabilityEditorIndex: Int? = nil
     @State private var newCharacterName:      String = ""
     @State private var newCrewName:           String = ""
     @State private var newCrewRole:           String = ""
@@ -81,6 +82,28 @@ struct ProductionSetupSheet: View {
                                     set: { castList[index].characterName = $0 }
                                 ))
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                                Button {
+                                    availabilityEditorIndex = index
+                                } label: {
+                                    let count = castList[index].unavailableRanges.count
+                                    HStack(spacing: 3) {
+                                        Image(systemName: count > 0 ? "calendar.badge.exclamationmark" : "calendar")
+                                        if count > 0 { Text("\(count)").font(.caption2) }
+                                    }
+                                    .foregroundColor(count > 0 ? .orange : .secondary)
+                                }
+                                .buttonStyle(.plain)
+                                .help("Set dates this actor is unavailable")
+                                .popover(isPresented: Binding(
+                                    get: { availabilityEditorIndex == index },
+                                    set: { if !$0 { availabilityEditorIndex = nil } }
+                                )) {
+                                    AvailabilityEditor(ranges: Binding(
+                                        get: { castList[index].unavailableRanges },
+                                        set: { castList[index].unavailableRanges = $0 }
+                                    ), personLabel: castList[index].displayString)
+                                }
 
                                 Button { castList.remove(at: index) } label: {
                                     Image(systemName: "minus.circle").foregroundColor(.red)
@@ -262,5 +285,68 @@ private struct LabeledField: View {
             Text(label).font(.subheadline).foregroundColor(.secondary)
             TextField(placeholder, text: $text).textFieldStyle(RoundedBorderTextFieldStyle())
         }
+    }
+}
+
+/// Popover content for adding/removing the date ranges a cast member is unavailable —
+/// feeds both the schedule-wide conflict scan and the live red-strip coloring on the
+/// calendar.
+private struct AvailabilityEditor: View {
+    @Binding var ranges: [DateRange]
+    let personLabel: String
+
+    @State private var newStart: Date = Date()
+    @State private var newEnd:   Date = Date()
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Unavailable Dates").font(.headline)
+            Text(personLabel.isEmpty ? "Unnamed" : personLabel)
+                .font(.caption).foregroundColor(.secondary)
+
+            if ranges.isEmpty {
+                Text("No dates marked yet.").font(.caption).foregroundColor(.secondary)
+            } else {
+                ForEach(ranges) { range in
+                    HStack {
+                        Text(rangeLabel(range)).font(.caption)
+                        Spacer()
+                        Button {
+                            ranges.removeAll { $0.id == range.id }
+                        } label: {
+                            Image(systemName: "minus.circle").foregroundColor(.red)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+
+            Divider()
+
+            Text("Add a range").font(.caption).foregroundColor(.secondary)
+            HStack(spacing: 8) {
+                DatePicker("From", selection: $newStart, displayedComponents: .date)
+                    .labelsHidden()
+                Text("–")
+                DatePicker("To", selection: $newEnd, displayedComponents: .date)
+                    .labelsHidden()
+                Button {
+                    ranges.append(DateRange(start: newStart, end: newEnd))
+                } label: {
+                    Image(systemName: "plus.circle.fill").foregroundColor(.blue)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(16)
+        .frame(width: 320)
+    }
+
+    private func rangeLabel(_ range: DateRange) -> String {
+        let cal = Calendar.current
+        if cal.isDate(range.start, inSameDayAs: range.end) {
+            return formattedDate(range.start)
+        }
+        return "\(formattedDate(range.start)) – \(formattedDate(range.end))"
     }
 }

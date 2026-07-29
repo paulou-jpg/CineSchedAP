@@ -21,6 +21,7 @@ extension Notification.Name {
     static let csExportSchedulePDF   = Notification.Name("CineSched.exportSchedulePDF")
     static let csExportDaysOutOfDays = Notification.Name("CineSched.exportDaysOutOfDays")
     static let csOpenProductionSetup = Notification.Name("CineSched.openProductionSetup")
+    static let csScanForConflicts    = Notification.Name("CineSched.scanForConflicts")
 }
 
 // MARK: - Recent files

@@ -14,7 +14,7 @@ enum DayNightType: String, Codable, CaseIterable {
         switch self {
         case .day:    return Color.orange
         case .night:  return Color.blue
-        case .custom: return Color.red
+        case .custom: return Color.green
         }
     }
 
@@ -196,15 +196,53 @@ struct CrewMember: Identifiable, Codable, Hashable {
 
 // MARK: - CastMember
 
+// MARK: - DateRange (actor unavailability)
+
+/// A simple inclusive date range, used to mark when an actor isn't available. Day-level
+/// granularity only (no times), matching the rest of the app's day-based scheduling.
+struct DateRange: Identifiable, Codable, Hashable {
+    let id: UUID
+    var start: Date
+    var end: Date
+
+    init(start: Date, end: Date) {
+        self.id    = UUID()
+        self.start = start
+        self.end   = max(start, end)   // keep end from ever preceding start
+    }
+
+    func contains(_ date: Date) -> Bool {
+        let cal = Calendar.current
+        let d = cal.startOfDay(for: date)
+        return d >= cal.startOfDay(for: start) && d <= cal.startOfDay(for: end)
+    }
+}
+
+// MARK: - CastMember
+
 struct CastMember: Identifiable, Codable, Hashable {
     let id: UUID
     var actorName:     String
     var characterName: String
+    var unavailableRanges: [DateRange]
 
-    init(actorName: String = "", characterName: String = "") {
-        self.id            = UUID()
-        self.actorName     = actorName
-        self.characterName = characterName
+    init(actorName: String = "", characterName: String = "", unavailableRanges: [DateRange] = []) {
+        self.id                = UUID()
+        self.actorName         = actorName
+        self.characterName     = characterName
+        self.unavailableRanges = unavailableRanges
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id, actorName, characterName, unavailableRanges
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id                = try c.decode(UUID.self,   forKey: .id)
+        actorName         = try c.decode(String.self, forKey: .actorName)
+        characterName     = try c.decode(String.self, forKey: .characterName)
+        unavailableRanges = try c.decodeIfPresent([DateRange].self, forKey: .unavailableRanges) ?? []
     }
 
     var displayString: String {
@@ -233,7 +271,7 @@ extension Scene {
 
 // MARK: - ProductionInfo
 
-struct ProductionInfo: Codable {
+struct ProductionInfo: Codable, Equatable {
     var companyName:   String
     var directorName:  String
     var contactNumber: String

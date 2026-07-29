@@ -18,6 +18,9 @@ struct CompactMonthCalendarView: View {
     let isSidebarCollapsed: Bool
     @Binding var selectedSceneIDs:    Set<UUID>
     @Binding var lastSelectedSceneID: UUID?
+    let conflictDates: Set<Date>
+    let conflictSceneIDs: Set<UUID>
+    @Binding var scrollToDate: Date?
     let onSceneChanged: () -> Void
     let onCallSheetExport: (ShootDay) -> Void   // called when Export PDF tapped in editor
 
@@ -47,15 +50,25 @@ struct CompactMonthCalendarView: View {
     @State private var interactingSceneId: UUID?
 
     var body: some View {
-        ScrollView(.vertical, showsIndicators: true) {
-            let columns = Array(repeating: GridItem(.flexible(), spacing: 16), count: 7)
-            LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(Array(shootDays.enumerated()), id: \.element.id) { dayIndex, day in
-                    dayCell(day: day, dayIndex: dayIndex)
+        ScrollViewReader { proxy in
+            ScrollView(.vertical, showsIndicators: true) {
+                let columns = Array(repeating: GridItem(.flexible(), spacing: 16), count: 7)
+                LazyVGrid(columns: columns, spacing: 16) {
+                    ForEach(Array(shootDays.enumerated()), id: \.element.id) { dayIndex, day in
+                        dayCell(day: day, dayIndex: dayIndex)
+                            .id(day.id)
+                    }
                 }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 60)   // extra breathing room so the last row's totals are never flush with the scroll edge
             }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 60)   // extra breathing room so the last row's totals are never flush with the scroll edge
+            .onChange(of: scrollToDate) { _, newValue in
+                guard let date = newValue else { return }
+                if let target = shootDays.first(where: { Calendar.current.isDate($0.date, inSameDayAs: date) }) {
+                    withAnimation { proxy.scrollTo(target.id, anchor: .top) }
+                }
+                scrollToDate = nil
+            }
         }
         // Without an explicit bounded height here, the ScrollView sizes itself to fit
         // *all* of its content rather than the space actually visible in the window,
@@ -121,6 +134,12 @@ struct CompactMonthCalendarView: View {
                                 .fill(Color.blue)
                                 .frame(width: 5, height: 5)
                         }
+                        if conflictDates.contains(Calendar.current.startOfDay(for: day.date)) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .font(.system(size: 8))
+                                .foregroundColor(.red)
+                                .help("An actor scheduled this day is marked unavailable — see Production > Scan for Conflicts…")
+                        }
                         Spacer()
                         Image(systemName: "doc.text")
                             .font(.system(size: 8))
@@ -146,6 +165,7 @@ struct CompactMonthCalendarView: View {
                             isSelected: selectedSceneIDs.contains(scene.id),
                             selectionCount: selectedSceneIDs.count,
                             showCast: isSidebarCollapsed,
+                            hasConflict: conflictSceneIDs.contains(scene.id),
                             onEdit:      { editScene(dayIndex: dayIndex, sceneIndex: sceneIndex, scene: scene, dayId: day.id) },
                             onRemove:    { removeFromDay(scene, dayId: day.id) },
                             onDuplicate: { duplicateScene(scene) },
@@ -477,6 +497,7 @@ struct SceneCardView: View {
     let isSelected:     Bool
     let selectionCount: Int
     let showCast:       Bool
+    let hasConflict:    Bool
     let onEdit:      () -> Void
     let onRemove:    () -> Void
     let onDuplicate: () -> Void
@@ -487,17 +508,28 @@ struct SceneCardView: View {
 
     private var isDragging: Bool { interactingSceneId == scene.id }
     private var isMultiSelected: Bool { isSelected && selectionCount > 1 }
+    /// A conflict (this scene's cast includes someone marked unavailable that day) takes
+    /// visual priority over the normal Day/Night/Custom color — it's the more urgent thing
+    /// to notice at a glance.
+    private var displayColor: Color { hasConflict ? .red : scene.dayNightType.color }
 
     var body: some View {
         HStack(alignment: .top, spacing: 4) {
             Circle()
-                .fill(scene.dayNightType.color)
+                .fill(displayColor)
                 .frame(width: 8, height: 8)
                 .padding(.top, 2)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(scene.title)
-                    .font(.caption2).fontWeight(.medium).lineLimit(2)
+                HStack(spacing: 3) {
+                    Text(scene.title)
+                        .font(.caption2).fontWeight(.medium).lineLimit(2)
+                    if hasConflict {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.system(size: 7))
+                            .foregroundColor(.red)
+                    }
+                }
 
                 Text("(\(formattedEighths(scene.duration)), \(formattedTime(scene.estimatedTime)))")
                     .font(.caption2).foregroundColor(.secondary)
@@ -518,12 +550,12 @@ struct SceneCardView: View {
         .padding(4)
         .background(
             RoundedRectangle(cornerRadius: 4)
-                .fill(scene.dayNightType.color.opacity(isDragging ? 0.3 : 0.15))
+                .fill(displayColor.opacity(isDragging ? 0.3 : (hasConflict ? 0.22 : 0.15)))
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
                         .stroke(
-                            isSelected ? Color.accentColor : scene.dayNightType.color.opacity(isDragging ? 0.8 : 0.4),
-                            lineWidth: isSelected ? 2 : (isDragging ? 2 : 1)
+                            isSelected ? Color.accentColor : displayColor.opacity(isDragging ? 0.8 : (hasConflict ? 0.9 : 0.4)),
+                            lineWidth: isSelected ? 2 : (isDragging || hasConflict ? 2 : 1)
                         )
                 )
         )
