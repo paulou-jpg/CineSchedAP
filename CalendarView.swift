@@ -102,14 +102,6 @@ struct CompactMonthCalendarView: View {
 
     // MARK: - Day Cell
 
-    /// Weekday component is 1-7 with 1 = Sunday, 7 = Saturday in the Gregorian
-    /// calendar, regardless of locale — independent of the calendar grid's own
-    /// first-day-of-week display setting.
-    private func isWeekend(_ date: Date) -> Bool {
-        let weekday = Calendar.current.component(.weekday, from: date)
-        return weekday == 1 || weekday == 7
-    }
-
     @ViewBuilder
     private func dayCell(day: ShootDay, dayIndex: Int) -> some View {
         VStack(alignment: .leading, spacing: 4) {
