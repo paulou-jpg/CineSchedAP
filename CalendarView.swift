@@ -20,6 +20,7 @@ struct CompactMonthCalendarView: View {
     @Binding var lastSelectedSceneID: UUID?
     let conflictDates: Set<Date>
     let conflictSceneIDs: Set<UUID>
+    let duplicateSceneNumberIDs: Set<UUID>
     @Binding var scrollToDate: Date?
     let onSceneChanged: () -> Void
     let onCallSheetExport: (ShootDay) -> Void   // called when Export PDF tapped in editor
@@ -166,6 +167,7 @@ struct CompactMonthCalendarView: View {
                             selectionCount: selectedSceneIDs.count,
                             showCast: isSidebarCollapsed,
                             hasConflict: conflictSceneIDs.contains(scene.id),
+                            hasDuplicateSceneNumber: duplicateSceneNumberIDs.contains(scene.id),
                             onEdit:      { editScene(dayIndex: dayIndex, sceneIndex: sceneIndex, scene: scene, dayId: day.id) },
                             onRemove:    { removeFromDay(scene, dayId: day.id) },
                             onDuplicate: { duplicateScene(scene) },
@@ -498,6 +500,7 @@ struct SceneCardView: View {
     let selectionCount: Int
     let showCast:       Bool
     let hasConflict:    Bool
+    let hasDuplicateSceneNumber: Bool
     let onEdit:      () -> Void
     let onRemove:    () -> Void
     let onDuplicate: () -> Void
@@ -522,12 +525,18 @@ struct SceneCardView: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 3) {
-                    Text(scene.title)
+                    Text(scene.displayTitle)
                         .font(.caption2).fontWeight(.medium).lineLimit(2)
                     if hasConflict {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .font(.system(size: 7))
                             .foregroundColor(.red)
+                    }
+                    if hasDuplicateSceneNumber {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.system(size: 7))
+                            .foregroundColor(.red)
+                            .help("Duplicate scene number '\(scene.sceneNumber)' — another scene uses it too.")
                     }
                 }
 
@@ -559,6 +568,11 @@ struct SceneCardView: View {
                         )
                 )
         )
+        .overlay(
+            RoundedRectangle(cornerRadius: 4)
+                .strokeBorder(Color.red, style: StrokeStyle(lineWidth: 1.5, dash: [4, 3]))
+                .opacity(hasDuplicateSceneNumber ? 1 : 0)
+        )
         .scaleEffect(isDragging ? 1.05 : 1.0)
         .opacity(isDragging ? 0.8 : 1.0)
         .animation(.easeInOut(duration: 0.2), value: isDragging)
@@ -570,7 +584,7 @@ struct SceneCardView: View {
         } preview: {
             HStack(spacing: 4) {
                 Circle().fill(scene.dayNightType.color).frame(width: 8, height: 8)
-                Text(scene.title).font(.caption).fontWeight(.medium)
+                Text(scene.displayTitle).font(.caption).fontWeight(.medium)
             }
             .padding(8)
             .background(

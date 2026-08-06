@@ -36,6 +36,7 @@ struct ContentView: View {
     @State var hasUnsavedChanges: Bool = false
 
     // MARK: UI / sheet state
+    @State private var newSceneNumber: String = ""
     @State private var newSceneTitle: String = ""
     @State private var newDuration:   String = ""
     @State private var newEstimate:   String = ""
@@ -84,10 +85,13 @@ struct ContentView: View {
     /// manually trigger a scan — Scan for Conflicts… just opens the full report on demand.
     @State private var conflictDates: Set<Date> = []
     @State private var conflictSceneIDs: Set<UUID> = []
+    /// Same recompute-on-change pattern as conflictSceneIDs — scene IDs whose scene
+    /// number collides with another scene's, anywhere in the project.
+    @State private var duplicateSceneNumberIDs: Set<UUID> = []
 
     // Boneyard sort — persisted so your preferred sort (e.g. Location) is still
     // applied the next time you open the project.
-    enum BoneyardSort: String, CaseIterable { case defaultOrder, location, intExt, cast, dayNight }
+    enum BoneyardSort: String, CaseIterable { case defaultOrder, showOrder, location, intExt, cast, dayNight }
     @AppStorage("CineSchedBoneyardSort") private var boneyardSort: BoneyardSort = .defaultOrder
 
     // Collapsible sidebar sections — persisted so the layout you leave with is the
@@ -177,6 +181,7 @@ struct ContentView: View {
             restoreCurrentFileURL()
             recomputeSortedScenes()
             recomputeConflicts()
+            recomputeDuplicateSceneNumbers()
         }
         .onReceive(NotificationCenter.default.publisher(for: .csNewProject)) { _ in
             showingClearAllConfirmation = true
@@ -214,6 +219,7 @@ struct ContentView: View {
             recomputeSortedScenes()
             pruneSelection()
             recomputeConflicts()
+            recomputeDuplicateSceneNumbers()
         }
         .onChange(of: boneyardSort) { _, _ in
             recomputeSortedScenes()
@@ -273,6 +279,7 @@ struct ContentView: View {
             // New Scene form — collapsible to free up room for the Boneyard
             DisclosureGroup(isExpanded: $isNewSceneExpanded) {
                 NewSceneInputView(
+                    newSceneNumber: $newSceneNumber,
                     newSceneTitle: $newSceneTitle,
                     newDuration:   $newDuration,
                     newEstimate:   $newEstimate,
@@ -299,6 +306,7 @@ struct ContentView: View {
                 Spacer()
                 Menu {
                     Button("Default Order") { boneyardSort = .defaultOrder }
+                    Button("Show Order")    { boneyardSort = .showOrder }
                     Button("Location")      { boneyardSort = .location }
                     Button("INT / EXT")     { boneyardSort = .intExt }
                     Button("Cast")          { boneyardSort = .cast }
@@ -337,6 +345,10 @@ struct ContentView: View {
         let conflicts = ConflictScanner.scan(shootDays: shootDays, productionInfo: productionInfo)
         conflictDates = ConflictScanner.conflictDates(conflicts)
         conflictSceneIDs = ConflictScanner.conflictSceneIDs(conflicts)
+    }
+
+    private func recomputeDuplicateSceneNumbers() {
+        duplicateSceneNumberIDs = ConflictScanner.duplicateSceneNumberIDs(allScenes: allScenes, shootDays: shootDays)
     }
 
     private func pruneSelection() {
@@ -400,9 +412,26 @@ struct ContentView: View {
         return "ZZZ"
     }
 
+    /// Show Order sort key: prefers the scene's own `sceneNumber` field. Falls
+    /// back to a leading "12A. " match in `title` for scenes saved before that
+    /// field existed, whose number (if any) is still baked into the title.
+    /// Scenes with no number at all — either field — sort last.
+    private func sceneNumberSortKey(_ scene: Scene) -> (Int, String) {
+        if !scene.sceneNumber.isEmpty, let key = Scene.parseSceneNumber(scene.sceneNumber) {
+            return key
+        }
+        let pattern = #"^\d+[A-Za-z]?\.\s*"#
+        if let range = scene.title.range(of: pattern, options: .regularExpression),
+           let key = Scene.parseSceneNumber(String(scene.title[range])) {
+            return key
+        }
+        return (Int.max, scene.title.uppercased())
+    }
+
     private var boneyardSortLabel: String {
         switch boneyardSort {
         case .defaultOrder: return "Default"
+        case .showOrder:    return "Show Order"
         case .location:     return "Location"
         case .intExt:       return "INT/EXT"
         case .cast:         return "Cast"
@@ -444,6 +473,13 @@ struct ContentView: View {
         switch boneyardSort {
         case .defaultOrder:
             sortedScenes = indexed
+        case .showOrder:
+            sortedScenes = indexed.sorted {
+                let a = sceneNumberSortKey($0.scene)
+                let b = sceneNumberSortKey($1.scene)
+                if a.0 != b.0 { return a.0 < b.0 }
+                return a.1 < b.1
+            }
         case .location:
             sortedScenes = indexed.sorted { locationSortKey($0.scene.title) < locationSortKey($1.scene.title) }
         case .intExt:
@@ -477,7 +513,12 @@ struct ContentView: View {
                 ForEach(sortedScenes, id: \.scene.id) { item in
                     HStack {
                         Circle().fill(item.scene.dayNightType.color).frame(width: 8, height: 8)
-                        Text(item.scene.title)
+                        Text(item.scene.displayTitle)
+                        if duplicateSceneNumberIDs.contains(item.scene.id) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .font(.caption2).foregroundColor(.red)
+                                .help("Duplicate scene number '\(item.scene.sceneNumber)' — another scene uses it too.")
+                        }
                         Spacer()
                         Text(item.scene.dayNightType == .day ? "D" : "N")
                             .font(.caption).foregroundColor(item.scene.dayNightType.color).fontWeight(.semibold)
@@ -495,6 +536,11 @@ struct ContentView: View {
                     .background(
                         RoundedRectangle(cornerRadius: 4)
                             .fill(selectedSceneIDs.contains(item.scene.id) ? Color.accentColor.opacity(0.22) : Color.white.opacity(0.001))
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .strokeBorder(Color.red, style: StrokeStyle(lineWidth: 1.5, dash: [4, 3]))
+                            .opacity(duplicateSceneNumberIDs.contains(item.scene.id) ? 1 : 0)
                     )
                     .onDrag { dragPayload(for: item.scene) }
                     .fastTooltip(item.scene.tooltipText)
@@ -595,8 +641,9 @@ struct ContentView: View {
                 lastSelectedSceneID: $lastSelectedSceneID,
                 conflictDates: conflictDates,
                 conflictSceneIDs: conflictSceneIDs,
+                duplicateSceneNumberIDs: duplicateSceneNumberIDs,
                 scrollToDate: $scrollToDate,
-                onSceneChanged: { markDirty(); pruneSelection(); recomputeConflicts() },
+                onSceneChanged: { markDirty(); pruneSelection(); recomputeConflicts(); recomputeDuplicateSceneNumbers() },
                 onCallSheetExport: { day in
                     showCallSheetPDFSavePanel(for: day)
                 }

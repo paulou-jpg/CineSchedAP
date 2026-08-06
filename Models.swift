@@ -26,6 +26,7 @@ enum DayNightType: String, Codable, CaseIterable {
 struct Scene: Identifiable, Codable, Hashable {
     let id: UUID
     var title: String
+    var sceneNumber: String
     var duration: Int
     var estimatedTime: Int
     var dayNightType: DayNightType
@@ -34,6 +35,7 @@ struct Scene: Identifiable, Codable, Hashable {
 
     init(
         title: String,
+        sceneNumber: String = "",
         duration: Int,
         estimatedTime: Int,
         dayNightType: DayNightType = .day,
@@ -42,6 +44,7 @@ struct Scene: Identifiable, Codable, Hashable {
     ) {
         self.id            = UUID()
         self.title         = title
+        self.sceneNumber   = sceneNumber
         self.duration      = duration
         self.estimatedTime = estimatedTime
         self.dayNightType  = dayNightType
@@ -50,7 +53,7 @@ struct Scene: Identifiable, Codable, Hashable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, title, duration, estimatedTime, dayNightType, cast, summary
+        case id, title, sceneNumber, duration, estimatedTime, dayNightType, cast, summary
     }
 
     init(from decoder: Decoder) throws {
@@ -61,6 +64,9 @@ struct Scene: Identifiable, Codable, Hashable {
         estimatedTime = try c.decode(Int.self,          forKey: .estimatedTime)
         dayNightType  = try c.decode(DayNightType.self, forKey: .dayNightType)
         summary       = try c.decodeIfPresent(String.self, forKey: .summary) ?? ""
+        // Older save files predate this field — scenes from before still display
+        // fine since their number, if any, is already baked into `title`.
+        sceneNumber   = try c.decodeIfPresent(String.self, forKey: .sceneNumber) ?? ""
         if let array = try? c.decode([String].self, forKey: .cast) {
             cast = array
         } else if let legacy = try? c.decode(String.self, forKey: .cast) {
@@ -70,6 +76,30 @@ struct Scene: Identifiable, Codable, Hashable {
         } else {
             cast = []
         }
+    }
+
+    /// "12A. INT. HOUSE - DAY" for display — combines the dedicated number field
+    /// with the title. Falls back to the bare title when there's no number, which
+    /// also covers scenes saved before this field existed (their number, if any,
+    /// is already part of `title` from that era).
+    var displayTitle: String {
+        sceneNumber.isEmpty ? title : "\(sceneNumber). \(title)"
+    }
+
+    /// Splits a raw scene number like "12A" into its numeric and letter parts,
+    /// e.g. for numeric-aware sorting (so "12A" lands between 12 and 13
+    /// instead of sorting lexicographically) or for comparing two numbers for
+    /// equality regardless of formatting (so "3" and "03" count as the same
+    /// scene). Returns nil for an empty or non-numeric-leading string.
+    /// Standalone on the model — not tied to any one feature — since scene
+    /// numbers get compared this way from several places (Boneyard sorting,
+    /// duplicate-number detection, and likely more later).
+    static func parseSceneNumber(_ raw: String) -> (number: Int, letter: String)? {
+        let trimmed = raw.trimmingCharacters(in: .whitespaces)
+        let digits  = trimmed.prefix { $0.isNumber }
+        let letter  = trimmed.dropFirst(digits.count).prefix { $0.isLetter }
+        guard let number = Int(digits) else { return nil }
+        return (number, String(letter).uppercased())
     }
 }
 
@@ -257,7 +287,7 @@ extension Scene {
     /// (`.help()`) in both the Boneyard and the calendar, which already has the ~1-2 second
     /// hover delay built in.
     var tooltipText: String {
-        var lines: [String] = [title]
+        var lines: [String] = [displayTitle]
         if !cast.isEmpty {
             lines.append("Cast: " + cast.joined(separator: ", "))
         }

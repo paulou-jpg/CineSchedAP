@@ -228,7 +228,7 @@ class PDFExporter {
             boxPath.lineWidth = 0.5
             boxPath.stroke()
 
-            let attrStr    = NSAttributedString(string: scene.title, attributes: sceneAttr)
+            let attrStr    = NSAttributedString(string: scene.displayTitle, attributes: sceneAttr)
             let textHeight = attrStr.size().height
             let textRect   = CGRect(
                 x: content.minX + 3,

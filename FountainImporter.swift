@@ -169,7 +169,8 @@ struct FountainImporter {
             let dayNight: DayNightType = FinalDraftParser.TimeOfDay(from: headingElement.text) == .night ? .night : .day
 
             scenes.append(Scene(
-                title:         "\(sceneNumberText). \(headingElement.text)",
+                title:         headingElement.text,
+                sceneNumber:   sceneNumberText,
                 duration:      scenePagination.eighths,
                 estimatedTime: placeholderEstimatedMinutes,
                 dayNightType:  dayNight,

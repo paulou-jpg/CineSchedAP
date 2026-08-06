@@ -17,6 +17,7 @@ struct SceneEditSheet: View {
     var onNext:        (() -> Void)? = nil
     var positionLabel: String?       = nil
 
+    @State private var editSceneNumber:   String      = ""
     @State private var editTitle:         String      = ""
     @State private var editDuration:      String      = ""
     @State private var editEstimatedTime: String      = ""
@@ -75,9 +76,15 @@ struct SceneEditSheet: View {
 
                 // Title
                 Text("Scene Title").font(.headline)
-                TextField("Scene Title", text: $editTitle)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .focused($focusedField, equals: .title)
+                HStack(spacing: 6) {
+                    TextField("#", text: $editSceneNumber)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .frame(width: 60)
+                        .help("Scene number (optional)")
+                    TextField("Scene Title", text: $editTitle)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .focused($focusedField, equals: .title)
+                }
 
                 // Duration
                 VStack(alignment: .leading, spacing: 4) {
@@ -230,6 +237,7 @@ struct SceneEditSheet: View {
     }
 
     private func populateFields() {
+        editSceneNumber   = scene.sceneNumber
         editTitle         = scene.title
         editDuration      = scene.duration > 0 ? FractionParser.formatEighths(scene.duration) : ""
         editEstimatedTime = scene.estimatedTime > 0 ? formatMinutesForEditing(scene.estimatedTime) : ""
@@ -269,6 +277,7 @@ struct SceneEditSheet: View {
     }
 
     private func saveChanges() {
+        scene.sceneNumber  = editSceneNumber.trimmingCharacters(in: .whitespaces)
         scene.title        = editTitle
         scene.dayNightType = editDayNightType
         scene.cast         = editCastText

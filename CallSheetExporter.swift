@@ -168,8 +168,8 @@ class CallSheetExporter {
                 NSColor(white: 0.97, alpha: 1).setFill()
                 NSBezierPath(rect: CGRect(x: margin, y: y - 12, width: colWidth, height: 13)).fill()
             }
-            let sceneNum = extractSceneNumber(from: scene.title)
-            let location = extractLocation(from: scene.title)
+            let sceneNum = scene.sceneNumber.isEmpty ? extractSceneNumber(from: scene.title) : scene.sceneNumber
+            let location = scene.sceneNumber.isEmpty ? extractLocation(from: scene.title) : scene.title
             NSAttributedString(string: sceneNum,                         attributes: rowAttr).draw(in: CGRect(x: col1, y: y - 11, width: colW1, height: 11))
             NSAttributedString(string: location,                         attributes: rowAttr).draw(in: CGRect(x: col2, y: y - 11, width: colW2, height: 11))
             NSAttributedString(string: scene.dayNightType.displayName,   attributes: rowAttr).draw(in: CGRect(x: col3, y: y - 11, width: colW3, height: 11))
