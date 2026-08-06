@@ -1,13 +1,12 @@
 name: CineSched
 options:
   deploymentTarget:
-    macOS: "13.0"
+    macOS: "14.0"
   createIntermediateGroups: true
 
 settings:
   base:
     SWIFT_VERSION: "5.0"
-    MACOSX_DEPLOYMENT_TARGET: "15.0"
     CODE_SIGN_STYLE: Automatic
     CODE_SIGN_IDENTITY: "-"
     DEVELOPMENT_TEAM: ""
@@ -18,7 +17,7 @@ targets:
   CineSched:
     type: application
     platform: macOS
-    deploymentTarget: "15.0"
+    deploymentTarget: "14.0"
     sources:
       - path: .
         excludes:
@@ -49,7 +48,7 @@ targets:
   CineSchedTests:
     type: bundle.unit-test
     platform: macOS
-    deploymentTarget: "13.0"
+    deploymentTarget: "14.0"
     sources:
       - path: Tests
     dependencies:
