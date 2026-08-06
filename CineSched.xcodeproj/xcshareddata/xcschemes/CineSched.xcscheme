@@ -21,6 +21,20 @@
                ReferencedContainer = "container:CineSched.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6CC24D0E85DFB8B7C2D3B253"
+               BuildableName = "CineSchedTests.xctest"
+               BlueprintName = "CineSchedTests"
+               ReferencedContainer = "container:CineSched.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -39,7 +53,20 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6CC24D0E85DFB8B7C2D3B253"
+               BuildableName = "CineSchedTests.xctest"
+               BlueprintName = "CineSchedTests"
+               ReferencedContainer = "container:CineSched.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

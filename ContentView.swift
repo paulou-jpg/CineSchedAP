@@ -49,6 +49,12 @@ struct ContentView: View {
     @State var importMessage:  String = ""
     @State private var importedScenesCount = 0
 
+    // Fountain import
+    @State var pendingFountainImport:   FountainImportResult? = nil
+    @State var showingFountainImportConfirmation = false
+    @State var completedFountainImport: FountainImportResult? = nil
+    @State var showingImportSummary = false
+
     // Unscheduled-scene editing
     @State private var editingUnscheduledScene:      Scene?
     @State private var editingUnscheduledSceneIndex: Int?
@@ -127,6 +133,23 @@ struct ContentView: View {
         } message: {
             Text("This will clear all scenes, call sheets, and the project title. This action cannot be undone.")
         }
+        .confirmationDialog(
+            "Import into Current Project?",
+            isPresented: $showingFountainImportConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Import") { confirmPendingFountainImport() }
+            Button("Cancel", role: .cancel) { cancelPendingFountainImport() }
+        } message: {
+            if let result = pendingFountainImport {
+                Text("'\(projectTitle)' already has scenes or a schedule. This will add \(result.scenes.count) new scene\(result.scenes.count == 1 ? "" : "s") to the Boneyard — nothing existing will be changed or removed.")
+            }
+        }
+        .sheet(isPresented: $showingImportSummary) {
+            if let result = completedFountainImport {
+                ImportSummaryView(result: result, onDismiss: { showingImportSummary = false })
+            }
+        }
         .sheet(isPresented: $showingUnscheduledSceneEditSheet) { unscheduledEditSheet }
         .onChange(of: showingUnscheduledSceneEditSheet) { isShowing in
             if !isShowing { clearUnscheduledEditingState() }
@@ -166,7 +189,7 @@ struct ContentView: View {
             loadProject(from: url)
         }
         .onReceive(NotificationCenter.default.publisher(for: .csImportScript)) { _ in
-            showFDXOpenPanel()
+            showScriptImportPanel()
         }
         .onReceive(NotificationCenter.default.publisher(for: .csSaveProject)) { _ in
             saveProject()
@@ -602,6 +625,13 @@ struct ContentView: View {
             }
 
             Spacer()
+
+            Button {
+                showScriptImportPanel()
+            } label: {
+                Label("Import Script…", systemImage: "doc.badge.plus")
+            }
+            .help("Import a .fountain, .md, .spmd, or .fdx screenplay into the Boneyard")
         }
         .padding(.bottom)
     }

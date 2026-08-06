@@ -305,9 +305,12 @@ extension ContentView {
         }
     }
 
-    func showFDXOpenPanel() {
+    /// Single "Import Script…" entry point for every supported screenplay format —
+    /// dispatches by extension to the Final Draft (.fdx/.xml) or Fountain
+    /// (.fountain/.md/.spmd) importer once a file is chosen.
+    func showScriptImportPanel() {
         let panel = NSOpenPanel()
-        panel.title                = "Import Final Draft Script"
+        panel.title                = "Import Script"
         panel.prompt               = "Import"
         // UTType(filenameExtension:) matches by extension alone, so this works whether or
         // not Final Draft is installed. UTType(importedAs: "com.finaldraft.fdx") — the
@@ -318,6 +321,9 @@ extension ContentView {
         var allowedTypes: [UTType] = []
         if let fdxType = UTType(filenameExtension: "fdx") { allowedTypes.append(fdxType) }
         allowedTypes.append(.xml)
+        for ext in FountainImporter.supportedExtensions {
+            if let type = UTType(filenameExtension: ext) { allowedTypes.append(type) }
+        }
         panel.allowedContentTypes  = allowedTypes
         panel.allowsMultipleSelection = false
         panel.canChooseDirectories = false
@@ -325,7 +331,12 @@ extension ContentView {
         panel.begin { [self] response in
             DispatchQueue.main.async {
                 guard response == .OK, let url = panel.url else { return }
-                self.importFDXScript(from: url)
+                let ext = url.pathExtension.lowercased()
+                if FountainImporter.supportedExtensions.contains(ext) {
+                    self.beginFountainImport(from: url)
+                } else {
+                    self.importFDXScript(from: url)
+                }
             }
         }
     }
@@ -363,6 +374,59 @@ extension ContentView {
             importMessage = "Failed to import script: \(error.localizedDescription)"
             showingImportAlert = true
         }
+    }
+
+    // MARK: - Fountain import
+
+    func beginFountainImport(from url: URL) {
+        guard url.startAccessingSecurityScopedResource() else {
+            importMessage = "Unable to access the selected file."
+            showingImportAlert = true
+            return
+        }
+        FountainImporter.importScript(from: url) { [self] outcome in
+            url.stopAccessingSecurityScopedResource()
+            switch outcome {
+            case .failure(let error):
+                importMessage = error.localizedDescription
+                showingImportAlert = true
+            case .success(let result):
+                applyFountainImport(result)
+            }
+        }
+    }
+
+    /// Fountain import only ever adds scenes to the Boneyard — it never touches
+    /// existing scenes, shoot days, or the project title — but if a project
+    /// already has content in it, confirm first rather than silently dropping
+    /// a new batch of scenes into it.
+    private func applyFountainImport(_ result: FountainImportResult) {
+        let hasExistingProject = !allScenes.isEmpty
+            || shootDays.contains { !$0.scenes.isEmpty }
+            || projectTitle != "Untitled Movie"
+        if hasExistingProject {
+            pendingFountainImport = result
+            showingFountainImportConfirmation = true
+        } else {
+            commitFountainImport(result)
+        }
+    }
+
+    func confirmPendingFountainImport() {
+        guard let result = pendingFountainImport else { return }
+        pendingFountainImport = nil
+        commitFountainImport(result)
+    }
+
+    func cancelPendingFountainImport() {
+        pendingFountainImport = nil
+    }
+
+    private func commitFountainImport(_ result: FountainImportResult) {
+        allScenes.append(contentsOf: result.scenes)
+        markDirty()
+        completedFountainImport = result
+        showingImportSummary = true
     }
 
     // MARK: - PDF exports (NSSavePanel)

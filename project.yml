@@ -45,10 +45,28 @@ targets:
         ENABLE_PREVIEWS: YES
         CODE_SIGN_ENTITLEMENTS: CineSched.entitlements
 
+  CineSchedTests:
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Tests
+    dependencies:
+      - target: CineSched
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: PyroStudios.CineSchedTests
+
 schemes:
   CineSched:
     build:
       targets:
         CineSched: all
+        CineSchedTests: [test]
     run:
       config: Debug
+    test:
+      config: Debug
+      targets:
+        - CineSchedTests
