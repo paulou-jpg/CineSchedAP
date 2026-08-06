@@ -42,12 +42,6 @@ struct FountainImporter {
 
     static let supportedExtensions = ["fountain", "md", "spmd", "highland"]
 
-    /// A nominal placeholder shoot-time estimate — Fountain has no concept of
-    /// how long a scene takes to shoot, unlike page count, which the
-    /// pagination engine computes for real. Mirrors the existing FDX importer's
-    /// "edit before scheduling" default.
-    private static let placeholderEstimatedMinutes = 15
-
     // MARK: - Open panel
 
     static func showOpenPanel(defaultDirectory: URL?, completion: @escaping (URL) -> Void) {
@@ -172,7 +166,7 @@ struct FountainImporter {
                 title:         headingElement.text,
                 sceneNumber:   sceneNumberText,
                 duration:      scenePagination.eighths,
-                estimatedTime: placeholderEstimatedMinutes,
+                estimatedTime: TimeParser.estimatedMinutes(forEighths: scenePagination.eighths),
                 dayNightType:  dayNight,
                 cast:          sceneCast,
                 summary:       description
