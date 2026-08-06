@@ -104,7 +104,7 @@ struct SceneEditSheet: View {
                     } else if let eighths = FractionParser.parseToEighths(editDuration), !editDuration.isEmpty {
                         Text("= \(FractionParser.formatEighths(eighths)) pages (\(eighths) eighths)")
                             .font(.caption).foregroundColor(.secondary)
-                    } else if editDayNightType == .custom {
+                    } else if editDuration.isEmpty {
                         Text("Leave blank for no page count")
                             .font(.caption).foregroundColor(.secondary)
                     }
@@ -124,7 +124,7 @@ struct SceneEditSheet: View {
                             .font(.caption).foregroundColor(.red)
                     } else if let hint = TimeParser.getInputHint(editEstimatedTime), !editEstimatedTime.isEmpty {
                         Text(hint).font(.caption).foregroundColor(.secondary)
-                    } else if editDayNightType == .custom {
+                    } else if editEstimatedTime.isEmpty {
                         Text("Leave blank for no time estimate")
                             .font(.caption).foregroundColor(.secondary)
                     }
@@ -265,29 +265,25 @@ struct SceneEditSheet: View {
         estimatedTimeIsValid = TimeParser.parseToMinutes(editEstimatedTime) != nil || editEstimatedTime.isEmpty
     }
 
+    /// A title is the only thing a scene actually needs — duration and time
+    /// are always optional and default to zero when left blank, since a
+    /// notice strip (no scene number, e.g. "DOWN FOR THANKSGIVING") often has
+    /// neither. Non-empty text in either field still has to actually parse.
     private func isValidInput() -> Bool {
         let titleOK = !editTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        if editDayNightType == .custom {
-            // Custom strips only require a title
-            return titleOK && durationIsValid && estimatedTimeIsValid
-        }
-        let durationOK = (FractionParser.parseToEighths(editDuration) ?? 0) > 0
-        let timeOK     = (TimeParser.parseToMinutes(editEstimatedTime) ?? 0) > 0
-        return titleOK && durationOK && timeOK
+        return titleOK && durationIsValid && estimatedTimeIsValid
     }
 
     private func saveChanges() {
-        scene.sceneNumber  = editSceneNumber.trimmingCharacters(in: .whitespaces)
-        scene.title        = editTitle
-        scene.dayNightType = editDayNightType
-        scene.cast         = editCastText
+        scene.sceneNumber   = editSceneNumber.trimmingCharacters(in: .whitespaces)
+        scene.title         = editTitle
+        scene.dayNightType  = editDayNightType
+        scene.cast          = editCastText
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespaces) }
             .filter { !$0.isEmpty }
-        scene.summary      = editSummary
-        if let d = FractionParser.parseToEighths(editDuration) { scene.duration      = d }
-        else if editDayNightType == .custom                     { scene.duration      = 0 }
-        if let t = TimeParser.parseToMinutes(editEstimatedTime) { scene.estimatedTime = t }
-        else if editDayNightType == .custom                     { scene.estimatedTime = 0 }
+        scene.summary        = editSummary
+        scene.duration       = FractionParser.parseToEighths(editDuration) ?? 0
+        scene.estimatedTime  = TimeParser.parseToMinutes(editEstimatedTime) ?? 0
     }
 }

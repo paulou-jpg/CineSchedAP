@@ -36,7 +36,7 @@ struct ImportSummaryView: View {
                         statTile(icon: "person.2", value: "\(result.castList.count)", label: "cast")
                     }
 
-                    Text("All \(result.scenes.count) scene\(result.scenes.count == 1 ? "" : "s") landed in the Boneyard, unscheduled. Time estimates default to 15 min — edit before scheduling.")
+                    Text("All \(result.scenes.count) scene\(result.scenes.count == 1 ? "" : "s") landed in the Boneyard, unscheduled. Time estimates are a rough guess from page count — edit before scheduling.")
                         .font(.caption).foregroundColor(.secondary)
 
                     if !result.castList.isEmpty {

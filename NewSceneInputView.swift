@@ -36,7 +36,7 @@ struct NewSceneInputView: View {
                 } else if let eighths = FractionParser.parseToEighths(newDuration), !newDuration.isEmpty {
                     Text("= \(FractionParser.formatEighths(eighths)) pages")
                         .font(.caption).foregroundColor(.secondary)
-                } else if newDayNightType == .custom {
+                } else if newDuration.isEmpty {
                     Text("Leave blank for no page count")
                         .font(.caption).foregroundColor(.secondary)
                 }
@@ -53,7 +53,7 @@ struct NewSceneInputView: View {
                         .font(.caption).foregroundColor(.red)
                 } else if let hint = TimeParser.getInputHint(newEstimate), !newEstimate.isEmpty {
                     Text(hint).font(.caption).foregroundColor(.secondary)
-                } else if newDayNightType == .custom {
+                } else if newEstimate.isEmpty {
                     Text("Leave blank for no time estimate")
                         .font(.caption).foregroundColor(.secondary)
                 }
@@ -96,15 +96,13 @@ struct NewSceneInputView: View {
         estimatedTimeIsValid = TimeParser.parseToMinutes(newEstimate) != nil || newEstimate.isEmpty
     }
 
+    /// A title is the only thing a scene actually needs — duration and time
+    /// are always optional and default to zero when left blank, since a
+    /// notice strip (no scene number, e.g. "DOWN FOR THANKSGIVING") often has
+    /// neither. Non-empty text in either field still has to actually parse.
     private func canAddScene() -> Bool {
         let titleOK = !newSceneTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        if newDayNightType == .custom {
-            // Custom strips only require a title
-            return titleOK && durationIsValid && estimatedTimeIsValid
-        }
-        let durationOK = (FractionParser.parseToEighths(newDuration) ?? 0) > 0
-        let timeOK     = (TimeParser.parseToMinutes(newEstimate) ?? 0) > 0
-        return titleOK && durationOK && timeOK
+        return titleOK && durationIsValid && estimatedTimeIsValid
     }
 
     private func addScene() {
@@ -112,11 +110,6 @@ struct NewSceneInputView: View {
 
         let duration = FractionParser.parseToEighths(newDuration) ?? 0
         let estimate = TimeParser.parseToMinutes(newEstimate) ?? 0
-
-        // For non-custom types, require valid duration and time
-        if newDayNightType != .custom {
-            guard duration > 0, estimate > 0 else { return }
-        }
 
         allScenes.append(Scene(
             title:         newSceneTitle,
