@@ -8,6 +8,7 @@ import AppKit
 // MARK: - CompactMonthCalendarView
 
 struct CompactMonthCalendarView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @Binding var shootDays: [ShootDay]
     let assignScene:  (Scene, ShootDay) -> Void
     @Binding var allScenes: [Scene]
@@ -100,6 +101,14 @@ struct CompactMonthCalendarView: View {
     }
 
     // MARK: - Day Cell
+
+    /// Weekday component is 1-7 with 1 = Sunday, 7 = Saturday in the Gregorian
+    /// calendar, regardless of locale — independent of the calendar grid's own
+    /// first-day-of-week display setting.
+    private func isWeekend(_ date: Date) -> Bool {
+        let weekday = Calendar.current.component(.weekday, from: date)
+        return weekday == 1 || weekday == 7
+    }
 
     @ViewBuilder
     private func dayCell(day: ShootDay, dayIndex: Int) -> some View {
@@ -204,7 +213,17 @@ struct CompactMonthCalendarView: View {
         }
         .padding(6)
         .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
-        .background(Color.gray.opacity(0.2))
+        .background(
+            ZStack {
+                Color.gray.opacity(0.2)
+                // Weekends get an extra black wash on top so they read as darker
+                // at a glance — a bit stronger in dark mode, where 8% reads as
+                // barely-there against an already-dark background.
+                if isWeekend(day.date) {
+                    Color.black.opacity(colorScheme == .dark ? 0.18 : 0.08)
+                }
+            }
+        )
         .overlay(
             RoundedRectangle(cornerRadius: 8)
                 .stroke(
