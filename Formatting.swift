@@ -20,6 +20,14 @@ func formattedTime(_ minutes: Int) -> String {
     TimeParser.formatMinutes(minutes)
 }
 
+/// Weekday component is 1-7 with 1 = Sunday, 7 = Saturday in the Gregorian
+/// calendar, regardless of locale — independent of any calendar grid's own
+/// first-day-of-week display setting.
+func isWeekend(_ date: Date) -> Bool {
+    let weekday = Calendar.current.component(.weekday, from: date)
+    return weekday == 1 || weekday == 7
+}
+
 /// Generates an array of ShootDays between two dates (inclusive).
 func generateDays(from startDate: Date, to endDate: Date) -> [ShootDay] {
     var calendar = Calendar(identifier: .gregorian)

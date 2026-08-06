@@ -2,6 +2,26 @@
 // Core data models for CineSched
 
 import SwiftUI
+import AppKit
+
+// MARK: - Color blending
+
+extension Color {
+    /// Blends this color toward white by `amount` (0...1) — e.g. 0.1 mixes in
+    /// 10% white, keeping 90% of the original. Computed from this color's
+    /// actual RGB components rather than a guessed replacement value, so it
+    /// tracks whatever the base color really is.
+    func lightened(by amount: Double) -> Color {
+        let ns = NSColor(self).usingColorSpace(.deviceRGB) ?? NSColor(self)
+        let r = ns.redComponent, g = ns.greenComponent, b = ns.blueComponent, a = ns.alphaComponent
+        return Color(
+            red:   r + (1 - r) * amount,
+            green: g + (1 - g) * amount,
+            blue:  b + (1 - b) * amount,
+            opacity: a
+        )
+    }
+}
 
 // MARK: - DayNightType
 
@@ -84,6 +104,62 @@ struct Scene: Identifiable, Codable, Hashable {
     /// is already part of `title` from that era).
     var displayTitle: String {
         sceneNumber.isEmpty ? title : "\(sceneNumber). \(title)"
+    }
+
+    // MARK: - Interior / Exterior + Movie Magic strip color
+
+    enum IntExt { case interior, exterior, unknown }
+
+    /// Interior/exterior, sniffed from the leading "INT."/"EXT." in `title` —
+    /// there's no dedicated field for this (same convention already relied on
+    /// elsewhere in the app, e.g. Boneyard's INT/EXT sort).
+    var intExt: IntExt {
+        let upper = title.trimmingCharacters(in: .whitespaces).uppercased()
+        if upper.hasPrefix("INT.") || upper.hasPrefix("INT ") || upper.hasPrefix("INT/EXT") || upper.hasPrefix("INT./EXT") || upper.hasPrefix("I/E") {
+            return .interior
+        }
+        if upper.hasPrefix("EXT.") || upper.hasPrefix("EXT ") {
+            return .exterior
+        }
+        return .unknown
+    }
+
+    /// Movie Magic Scheduling's own strip color code (distinct from the more
+    /// generic industry convention, which swaps interior/exterior night):
+    /// white = day interior, yellow = day exterior, green = night interior,
+    /// blue = night exterior. A scene with no scene number is treated as a
+    /// notice strip (e.g. "DOWN FOR THANKSGIVING") rather than a real scene —
+    /// those go black. Colors are mixed 10% toward white — softer than the
+    /// literal paper-strip hues, while still reading as the same colors at a
+    /// glance.
+    var stripColor: Color {
+        let base: Color
+        if sceneNumber.trimmingCharacters(in: .whitespaces).isEmpty {
+            base = .black
+        } else if dayNightType == .custom {
+            base = Color(white: 0.75)
+        } else {
+            switch (intExt, dayNightType) {
+            case (.interior, .day):    base = .white
+            case (.exterior, .day):    base = .yellow
+            case (.interior, .night):  base = .green
+            case (.exterior, .night):  base = .blue
+            // Unknown INT/EXT (a title that doesn't start with either) still
+            // needs *some* color — falls back to the day/night pair's more
+            // common member so it doesn't stand out as if it were an error.
+            case (.unknown, .day):     base = .white
+            case (.unknown, .night):   base = .blue
+            case (_, .custom):         base = Color(white: 0.75)   // unreachable — handled above
+            }
+        }
+        return base.lightened(by: 0.1)
+    }
+
+    /// White for the black "no scene number" notice-strip treatment, black
+    /// for every normal color-coded strip — keeps text readable against
+    /// whichever `stripColor` this scene gets.
+    var stripTextColor: Color {
+        sceneNumber.trimmingCharacters(in: .whitespaces).isEmpty ? .white : .black
     }
 
     /// Splits a raw scene number like "12A" into its numeric and letter parts,

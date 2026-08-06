@@ -89,6 +89,12 @@ struct ContentView: View {
     /// number collides with another scene's, anywhere in the project.
     @State private var duplicateSceneNumberIDs: Set<UUID> = []
 
+    // Schedule view mode — persisted so the view you leave with is the view
+    // you come back to. Stripboard is a Movie Magic-style alternative to the
+    // calendar grid, same underlying shootDays/allScenes data.
+    enum ScheduleViewMode: String, CaseIterable { case calendar, stripboard }
+    @AppStorage("CineSchedViewMode") private var viewMode: ScheduleViewMode = .calendar
+
     // Boneyard sort — persisted so your preferred sort (e.g. Location) is still
     // applied the next time you open the project.
     enum BoneyardSort: String, CaseIterable { case defaultOrder, showOrder, location, intExt, cast, dayNight }
@@ -649,26 +655,47 @@ struct ContentView: View {
     private var detailView: some View {
         VStack {
             toolbarRow
-            CompactMonthCalendarView(
-                shootDays:    $shootDays,
-                assignScene:  assign,
-                allScenes:    $allScenes,
-                updateScene:  updateScene,
-                removeScene:  removeScene,
-                projectTitle: projectTitle,
-                productionInfo: productionInfo,
-                isSidebarCollapsed: isSidebarCollapsed,
-                selectedSceneIDs: $selectedSceneIDs,
-                lastSelectedSceneID: $lastSelectedSceneID,
-                conflictDates: conflictDates,
-                conflictSceneIDs: conflictSceneIDs,
-                duplicateSceneNumberIDs: duplicateSceneNumberIDs,
-                scrollToDate: $scrollToDate,
-                onSceneChanged: { markDirty(); pruneSelection(); recomputeConflicts(); recomputeDuplicateSceneNumbers() },
-                onCallSheetExport: { day in
-                    showCallSheetPDFSavePanel(for: day)
+            Group {
+                switch viewMode {
+                case .calendar:
+                    CompactMonthCalendarView(
+                        shootDays:    $shootDays,
+                        assignScene:  assign,
+                        allScenes:    $allScenes,
+                        updateScene:  updateScene,
+                        removeScene:  removeScene,
+                        projectTitle: projectTitle,
+                        productionInfo: productionInfo,
+                        isSidebarCollapsed: isSidebarCollapsed,
+                        selectedSceneIDs: $selectedSceneIDs,
+                        lastSelectedSceneID: $lastSelectedSceneID,
+                        conflictDates: conflictDates,
+                        conflictSceneIDs: conflictSceneIDs,
+                        duplicateSceneNumberIDs: duplicateSceneNumberIDs,
+                        scrollToDate: $scrollToDate,
+                        onSceneChanged: { markDirty(); pruneSelection(); recomputeConflicts(); recomputeDuplicateSceneNumbers() },
+                        onCallSheetExport: { day in
+                            showCallSheetPDFSavePanel(for: day)
+                        }
+                    )
+                case .stripboard:
+                    StripboardView(
+                        shootDays:    $shootDays,
+                        allScenes:    $allScenes,
+                        productionInfo: productionInfo,
+                        selectedSceneIDs: $selectedSceneIDs,
+                        lastSelectedSceneID: $lastSelectedSceneID,
+                        conflictDates: conflictDates,
+                        conflictSceneIDs: conflictSceneIDs,
+                        duplicateSceneNumberIDs: duplicateSceneNumberIDs,
+                        scrollToDate: $scrollToDate,
+                        onSceneChanged: { markDirty(); pruneSelection(); recomputeConflicts(); recomputeDuplicateSceneNumbers() },
+                        onCallSheetExport: { day in
+                            showCallSheetPDFSavePanel(for: day)
+                        }
+                    )
                 }
-            )
+            }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -693,6 +720,15 @@ struct ContentView: View {
             }
 
             Spacer()
+
+            Picker("View", selection: $viewMode) {
+                Image(systemName: "calendar").tag(ScheduleViewMode.calendar)
+                Image(systemName: "rectangle.split.1x2").tag(ScheduleViewMode.stripboard)
+            }
+            .pickerStyle(.segmented)
+            .labelsHidden()
+            .frame(width: 90)
+            .help("Calendar / Stripboard view")
 
             Button {
                 showScriptImportPanel()
