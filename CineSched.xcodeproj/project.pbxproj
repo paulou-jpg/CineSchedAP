@@ -1,0 +1,515 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02D1A1DE87A233427394216A /* SendToDaySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_0B7A589D-FB53-42AC-9F55-443EB4D1AAE3" /* SendToDaySheet.swift */; };
+		0A38DEACD1807462D8A3B4BA /* FountainPaginatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0210E9E1E402F2CC82F6DAD8 /* FountainPaginatorTests.swift */; };
+		1A37E177EA1180FD18755894 /* SceneEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_E788C3DE-FCE1-47B9-9E53-1BD3BC4E337E" /* SceneEditSheet.swift */; };
+		1E73CEC56EF9454B29C31309 /* FountainParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD97494FF5E46F15F25140F /* FountainParser.swift */; };
+		224BFB1F0B37B8B5765CBB95 /* CallSheetExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_D7A5F6FE-0664-425F-B7B9-BB9E0803C268" /* CallSheetExporter.swift */; };
+		2FE87E0A1C3967FCDA851BE3 /* FountainPaginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE627B4830CF255642726CF /* FountainPaginator.swift */; };
+		39068BDF90A4CE09D212ABDA /* CineSchedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_59CF5707-805A-4847-ACBB-DB6656FABF06" /* CineSchedApp.swift */; };
+		4042BB7B876D102EF4939EDE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_113BF186-B71E-4A11-AE56-65C332B8117C" /* ContentView.swift */; };
+		41D47FD1C0FFC14FB0FAEC89 /* RecentFilesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_79D36D16-367F-4102-AF1A-5C56C79EDB6E" /* RecentFilesStore.swift */; };
+		4401F504F86AB5D677EC79CA /* DaysOutOfDaysExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_2D484343-2977-41F7-9096-F1C3F1905557" /* DaysOutOfDaysExporter.swift */; };
+		46580B7572ED13C8ADCE8642 /* ProjectStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_E84EF8AB-F95C-4CE7-91C3-64B4A8FD10C0" /* ProjectStore.swift */; };
+		5AC2DACF44974C8936A27977 /* ConflictScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_948D3707-7EB7-4709-B678-6CC154C6BA40" /* ConflictScanner.swift */; };
+		7526287D231BD0E7087F8EC5 /* ImportSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_54FA4264-F4D9-4ACC-88B9-5564420C8504" /* ImportSummaryView.swift */; };
+		77F6DBF92AE5DCA2EF4D5BF1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_069BF38A-3C4B-4C97-B336-0807FB21B1B3" /* Models.swift */; };
+		7F0AEC02661D4748290B90B5 /* SelectAllTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_238D93B9-7A34-4600-8594-BDF21F680501" /* SelectAllTextField.swift */; };
+		9560B20AE10137286584E977 /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_C15720C3-D8B7-494F-9D1A-D8C4990EE9CA" /* Formatting.swift */; };
+		A815ADA264DDD40A15EAE137 /* FountainPaginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE627B4830CF255642726CF /* FountainPaginator.swift */; };
+		AE952B6847B4AD03A664E989 /* NewSceneInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_1ADB8B9F-9163-4089-927C-294C28DF8165" /* NewSceneInputView.swift */; };
+		CAC68CC176A951420FACF566 /* FinalDraftParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_38D77AC4-12AF-473C-B17F-D759AE827FEF" /* FinalDraftParser.swift */; };
+		CAFD13AE39CFB0F1B22A4D26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = "TEMP_DD282539-948D-46E0-87FE-39EE7EE77A6E" /* Assets.xcassets */; };
+		D0C973347A1B3D05ED1D634A /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_0628F446-2724-478B-AE84-E9974A78333C" /* CalendarView.swift */; };
+		DCAB78A9BF3FAF252E856343 /* ProductionSetupSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_104D70A6-449C-4849-A79A-90B6472EB92C" /* ProductionSetupSheet.swift */; };
+		DD992CC1519AA19BD937EFC5 /* ConflictReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_383E9FA8-5833-4FC2-83E6-FC9FCCD2A3FE" /* ConflictReportSheet.swift */; };
+		DFB4AB6F8AA19E607E8EC7E3 /* Parsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_21D8C13C-90DD-4A8F-988F-0B0CF1F23C0D" /* Parsers.swift */; };
+		E4BD8F78407DA7467337D985 /* CallSheetEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_4251FCBC-8807-4FA2-9C93-5FC8C309BF52" /* CallSheetEditor.swift */; };
+		E6BED1A8FC254AD2D34B78F7 /* FountainParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD97494FF5E46F15F25140F /* FountainParser.swift */; };
+		EA7A695FA13C2D02FABF71B6 /* FountainImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_BA2CE4DD-CBCB-4713-BDF5-96C87D537C58" /* FountainImporter.swift */; };
+		F1506B52DB9520A499AA2C9C /* HoverTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_59AF75B5-582A-438E-B1AC-7A4561EE9FF1" /* HoverTooltip.swift */; };
+		F53CF0ACAB3D3920F04E3993 /* PDFExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_4A1D3288-B80E-4D24-B588-4432023087AB" /* PDFExporter.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0210E9E1E402F2CC82F6DAD8 /* FountainPaginatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FountainPaginatorTests.swift; sourceTree = "<group>"; };
+		16A5CFF5763599F9FF5CD187 /* CineSchedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CineSchedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FD97494FF5E46F15F25140F /* FountainParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FountainParser.swift; sourceTree = "<group>"; };
+		A33415770FEB25F2001ED0E4 /* CineSched.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CineSched.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDE627B4830CF255642726CF /* FountainPaginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FountainPaginator.swift; sourceTree = "<group>"; };
+		"TEMP_0628F446-2724-478B-AE84-E9974A78333C" /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		"TEMP_069BF38A-3C4B-4C97-B336-0807FB21B1B3" /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		"TEMP_0B7A589D-FB53-42AC-9F55-443EB4D1AAE3" /* SendToDaySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendToDaySheet.swift; sourceTree = "<group>"; };
+		"TEMP_104D70A6-449C-4849-A79A-90B6472EB92C" /* ProductionSetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionSetupSheet.swift; sourceTree = "<group>"; };
+		"TEMP_113BF186-B71E-4A11-AE56-65C332B8117C" /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		"TEMP_1ADB8B9F-9163-4089-927C-294C28DF8165" /* NewSceneInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSceneInputView.swift; sourceTree = "<group>"; };
+		"TEMP_21D8C13C-90DD-4A8F-988F-0B0CF1F23C0D" /* Parsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsers.swift; sourceTree = "<group>"; };
+		"TEMP_238D93B9-7A34-4600-8594-BDF21F680501" /* SelectAllTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAllTextField.swift; sourceTree = "<group>"; };
+		"TEMP_2D484343-2977-41F7-9096-F1C3F1905557" /* DaysOutOfDaysExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysOutOfDaysExporter.swift; sourceTree = "<group>"; };
+		"TEMP_383E9FA8-5833-4FC2-83E6-FC9FCCD2A3FE" /* ConflictReportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictReportSheet.swift; sourceTree = "<group>"; };
+		"TEMP_38D77AC4-12AF-473C-B17F-D759AE827FEF" /* FinalDraftParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalDraftParser.swift; sourceTree = "<group>"; };
+		"TEMP_4251FCBC-8807-4FA2-9C93-5FC8C309BF52" /* CallSheetEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallSheetEditor.swift; sourceTree = "<group>"; };
+		"TEMP_4A1D3288-B80E-4D24-B588-4432023087AB" /* PDFExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFExporter.swift; sourceTree = "<group>"; };
+		"TEMP_54FA4264-F4D9-4ACC-88B9-5564420C8504" /* ImportSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSummaryView.swift; sourceTree = "<group>"; };
+		"TEMP_59AF75B5-582A-438E-B1AC-7A4561EE9FF1" /* HoverTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverTooltip.swift; sourceTree = "<group>"; };
+		"TEMP_59CF5707-805A-4847-ACBB-DB6656FABF06" /* CineSchedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CineSchedApp.swift; sourceTree = "<group>"; };
+		"TEMP_79D36D16-367F-4102-AF1A-5C56C79EDB6E" /* RecentFilesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFilesStore.swift; sourceTree = "<group>"; };
+		"TEMP_88FB7234-2747-413C-A90B-E897809EE7E5" /* CineSched.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CineSched.entitlements; sourceTree = "<group>"; };
+		"TEMP_948D3707-7EB7-4709-B678-6CC154C6BA40" /* ConflictScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictScanner.swift; sourceTree = "<group>"; };
+		"TEMP_BA2CE4DD-CBCB-4713-BDF5-96C87D537C58" /* FountainImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FountainImporter.swift; sourceTree = "<group>"; };
+		"TEMP_C15720C3-D8B7-494F-9D1A-D8C4990EE9CA" /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
+		"TEMP_D7A5F6FE-0664-425F-B7B9-BB9E0803C268" /* CallSheetExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallSheetExporter.swift; sourceTree = "<group>"; };
+		"TEMP_DC7058DA-BAA1-4365-AE30-6D1557D691FB" /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		"TEMP_DD282539-948D-46E0-87FE-39EE7EE77A6E" /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		"TEMP_E788C3DE-FCE1-47B9-9E53-1BD3BC4E337E" /* SceneEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditSheet.swift; sourceTree = "<group>"; };
+		"TEMP_E84EF8AB-F95C-4CE7-91C3-64B4A8FD10C0" /* ProjectStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStore.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		2581F94A8082CEBDF3E82AE1 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0210E9E1E402F2CC82F6DAD8 /* FountainPaginatorTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		CC3FE736529F7DBDB5FB6005 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A33415770FEB25F2001ED0E4 /* CineSched.app */,
+				16A5CFF5763599F9FF5CD187 /* CineSchedTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E0993B5EC4446C03E0313AB1 = {
+			isa = PBXGroup;
+			children = (
+				BDE627B4830CF255642726CF /* FountainPaginator.swift */,
+				5FD97494FF5E46F15F25140F /* FountainParser.swift */,
+				2581F94A8082CEBDF3E82AE1 /* Tests */,
+				CC3FE736529F7DBDB5FB6005 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		"TEMP_AE3F3B60-E24D-4C68-AB96-A0B47DE69373" /* . */ = {
+			isa = PBXGroup;
+			children = (
+				"TEMP_E788C3DE-FCE1-47B9-9E53-1BD3BC4E337E" /* SceneEditSheet.swift */,
+				"TEMP_79D36D16-367F-4102-AF1A-5C56C79EDB6E" /* RecentFilesStore.swift */,
+				"TEMP_2D484343-2977-41F7-9096-F1C3F1905557" /* DaysOutOfDaysExporter.swift */,
+				"TEMP_59CF5707-805A-4847-ACBB-DB6656FABF06" /* CineSchedApp.swift */,
+				"TEMP_1ADB8B9F-9163-4089-927C-294C28DF8165" /* NewSceneInputView.swift */,
+				"TEMP_DD282539-948D-46E0-87FE-39EE7EE77A6E" /* Assets.xcassets */,
+				"TEMP_4251FCBC-8807-4FA2-9C93-5FC8C309BF52" /* CallSheetEditor.swift */,
+				"TEMP_54FA4264-F4D9-4ACC-88B9-5564420C8504" /* ImportSummaryView.swift */,
+				"TEMP_D7A5F6FE-0664-425F-B7B9-BB9E0803C268" /* CallSheetExporter.swift */,
+				"TEMP_38D77AC4-12AF-473C-B17F-D759AE827FEF" /* FinalDraftParser.swift */,
+				5FD97494FF5E46F15F25140F /* FountainParser.swift */,
+				"TEMP_4A1D3288-B80E-4D24-B588-4432023087AB" /* PDFExporter.swift */,
+				"TEMP_59AF75B5-582A-438E-B1AC-7A4561EE9FF1" /* HoverTooltip.swift */,
+				"TEMP_E84EF8AB-F95C-4CE7-91C3-64B4A8FD10C0" /* ProjectStore.swift */,
+				"TEMP_069BF38A-3C4B-4C97-B336-0807FB21B1B3" /* Models.swift */,
+				"TEMP_948D3707-7EB7-4709-B678-6CC154C6BA40" /* ConflictScanner.swift */,
+				"TEMP_21D8C13C-90DD-4A8F-988F-0B0CF1F23C0D" /* Parsers.swift */,
+				"TEMP_383E9FA8-5833-4FC2-83E6-FC9FCCD2A3FE" /* ConflictReportSheet.swift */,
+				BDE627B4830CF255642726CF /* FountainPaginator.swift */,
+				"TEMP_88FB7234-2747-413C-A90B-E897809EE7E5" /* CineSched.entitlements */,
+				"TEMP_BA2CE4DD-CBCB-4713-BDF5-96C87D537C58" /* FountainImporter.swift */,
+				"TEMP_C15720C3-D8B7-494F-9D1A-D8C4990EE9CA" /* Formatting.swift */,
+				"TEMP_0B7A589D-FB53-42AC-9F55-443EB4D1AAE3" /* SendToDaySheet.swift */,
+				"TEMP_113BF186-B71E-4A11-AE56-65C332B8117C" /* ContentView.swift */,
+				"TEMP_104D70A6-449C-4849-A79A-90B6472EB92C" /* ProductionSetupSheet.swift */,
+				"TEMP_DC7058DA-BAA1-4365-AE30-6D1557D691FB" /* Info.plist */,
+				"TEMP_0628F446-2724-478B-AE84-E9974A78333C" /* CalendarView.swift */,
+				"TEMP_238D93B9-7A34-4600-8594-BDF21F680501" /* SelectAllTextField.swift */,
+			);
+			name = .;
+			path = .;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6CC24D0E85DFB8B7C2D3B253 /* CineSchedTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 916E904CB1AE08C82F8F3C62 /* Build configuration list for PBXNativeTarget "CineSchedTests" */;
+			buildPhases = (
+				D48BD96D491E37015FC8ADE4 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CineSchedTests;
+			packageProductDependencies = (
+			);
+			productName = CineSchedTests;
+			productReference = 16A5CFF5763599F9FF5CD187 /* CineSchedTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D343CAA0ACDB4CB6EB268B4E /* CineSched */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BB01B4464E2CF05CF8C8112 /* Build configuration list for PBXNativeTarget "CineSched" */;
+			buildPhases = (
+				03EC665B321132B47AA0A436 /* Sources */,
+				0DC17208E2E0FAC268C1FF2D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CineSched;
+			packageProductDependencies = (
+			);
+			productName = CineSched;
+			productReference = A33415770FEB25F2001ED0E4 /* CineSched.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		67ADA80CACE8B603B45D54D8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					6CC24D0E85DFB8B7C2D3B253 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					D343CAA0ACDB4CB6EB268B4E = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A61CB72E2F30F58A42B7FB0C /* Build configuration list for PBXProject "CineSched" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = E0993B5EC4446C03E0313AB1;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CC3FE736529F7DBDB5FB6005 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D343CAA0ACDB4CB6EB268B4E /* CineSched */,
+				6CC24D0E85DFB8B7C2D3B253 /* CineSchedTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0DC17208E2E0FAC268C1FF2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAFD13AE39CFB0F1B22A4D26 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		03EC665B321132B47AA0A436 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0C973347A1B3D05ED1D634A /* CalendarView.swift in Sources */,
+				E4BD8F78407DA7467337D985 /* CallSheetEditor.swift in Sources */,
+				224BFB1F0B37B8B5765CBB95 /* CallSheetExporter.swift in Sources */,
+				39068BDF90A4CE09D212ABDA /* CineSchedApp.swift in Sources */,
+				DD992CC1519AA19BD937EFC5 /* ConflictReportSheet.swift in Sources */,
+				5AC2DACF44974C8936A27977 /* ConflictScanner.swift in Sources */,
+				4042BB7B876D102EF4939EDE /* ContentView.swift in Sources */,
+				4401F504F86AB5D677EC79CA /* DaysOutOfDaysExporter.swift in Sources */,
+				CAC68CC176A951420FACF566 /* FinalDraftParser.swift in Sources */,
+				9560B20AE10137286584E977 /* Formatting.swift in Sources */,
+				EA7A695FA13C2D02FABF71B6 /* FountainImporter.swift in Sources */,
+				2FE87E0A1C3967FCDA851BE3 /* FountainPaginator.swift in Sources */,
+				E6BED1A8FC254AD2D34B78F7 /* FountainParser.swift in Sources */,
+				F1506B52DB9520A499AA2C9C /* HoverTooltip.swift in Sources */,
+				7526287D231BD0E7087F8EC5 /* ImportSummaryView.swift in Sources */,
+				77F6DBF92AE5DCA2EF4D5BF1 /* Models.swift in Sources */,
+				AE952B6847B4AD03A664E989 /* NewSceneInputView.swift in Sources */,
+				F53CF0ACAB3D3920F04E3993 /* PDFExporter.swift in Sources */,
+				DFB4AB6F8AA19E607E8EC7E3 /* Parsers.swift in Sources */,
+				DCAB78A9BF3FAF252E856343 /* ProductionSetupSheet.swift in Sources */,
+				46580B7572ED13C8ADCE8642 /* ProjectStore.swift in Sources */,
+				41D47FD1C0FFC14FB0FAEC89 /* RecentFilesStore.swift in Sources */,
+				1A37E177EA1180FD18755894 /* SceneEditSheet.swift in Sources */,
+				7F0AEC02661D4748290B90B5 /* SelectAllTextField.swift in Sources */,
+				02D1A1DE87A233427394216A /* SendToDaySheet.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D48BD96D491E37015FC8ADE4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A815ADA264DDD40A15EAE137 /* FountainPaginator.swift in Sources */,
+				0A38DEACD1807462D8A3B4BA /* FountainPaginatorTests.swift in Sources */,
+				1E73CEC56EF9454B29C31309 /* FountainParser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		072B2C59D18281621F5015BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PyroStudios.CineSchedTests;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2E7C39F68414642E51A91FA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PyroStudios.CineSchedTests;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		887C2527BE28BC6D006EF953 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		90308000778CA2682F1F1BF6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CineSched.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CineSched;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PyroStudios.CineSched;
+				PRODUCT_NAME = CineSched;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9D30E3EC55F0EEC2105BDDB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FEC180540D04CA70606CBF9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CineSched.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CineSched;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PyroStudios.CineSched;
+				PRODUCT_NAME = CineSched;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7BB01B4464E2CF05CF8C8112 /* Build configuration list for PBXNativeTarget "CineSched" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FEC180540D04CA70606CBF9B /* Debug */,
+				90308000778CA2682F1F1BF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		916E904CB1AE08C82F8F3C62 /* Build configuration list for PBXNativeTarget "CineSchedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				072B2C59D18281621F5015BF /* Debug */,
+				2E7C39F68414642E51A91FA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A61CB72E2F30F58A42B7FB0C /* Build configuration list for PBXProject "CineSched" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D30E3EC55F0EEC2105BDDB8 /* Debug */,
+				887C2527BE28BC6D006EF953 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 67ADA80CACE8B603B45D54D8 /* Project object */;
+}
