@@ -108,9 +108,25 @@ struct StripboardView: View {
                     ))
                 }
 
-                if shouldShowDropIndicator(dayId: day.id, position: day.scenes.count) {
-                    DropIndicatorView()
+                // Always-present drop target for "insert at the end of this day" —
+                // without its own hit-testable area, the only thing below the last
+                // strip is the whole-day fallback delegate, which in a dense list
+                // (no big empty buffer like the calendar's fixed-height cells have)
+                // leaves almost no space to actually drop onto.
+                VStack(spacing: 0) {
+                    if shouldShowDropIndicator(dayId: day.id, position: day.scenes.count) {
+                        DropIndicatorView()
+                    }
+                    Color.clear.frame(height: 14)
                 }
+                .contentShape(Rectangle())
+                .onDrop(of: [UTType.text.identifier], delegate: SceneDropDelegate(
+                    dayId: day.id,
+                    position: day.scenes.count,
+                    dropTargetDayId: $dropTargetDayId,
+                    dropTargetPosition: $dropTargetPosition,
+                    onDrop: { sceneId in handleSceneDrop(sceneId: sceneId, targetDayId: day.id, targetPosition: day.scenes.count) }
+                ))
             }
             .padding(.vertical, 4)
             .frame(maxWidth: .infinity, minHeight: day.scenes.isEmpty ? 36 : 0, alignment: .topLeading)
