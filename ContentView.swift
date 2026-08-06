@@ -107,6 +107,9 @@ struct ContentView: View {
     @State private var selectedSceneIDs:   Set<UUID> = []
     @State private var lastSelectedSceneID: UUID?
 
+    // Highlights the Boneyard while a scheduled scene is being dragged back to it.
+    @State private var isBoneyardDropTarget = false
+
     // MARK: - Computed statistics
 
     private var scheduledDays: [ShootDay] { shootDays.filter { !$0.scenes.isEmpty } }
@@ -582,6 +585,24 @@ struct ContentView: View {
                     Divider()
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .top)
+        }
+        .frame(maxHeight: .infinity)
+        .contentShape(Rectangle())
+        .overlay(
+            RoundedRectangle(cornerRadius: 6)
+                .stroke(Color.accentColor, lineWidth: 2)
+                .opacity(isBoneyardDropTarget ? 1 : 0)
+        )
+        .onDrop(of: [UTType.text.identifier], isTargeted: $isBoneyardDropTarget) { providers in
+            guard let provider = providers.first else { return false }
+            provider.loadObject(ofClass: NSString.self) { item, _ in
+                guard let idString = item as? String else { return }
+                DispatchQueue.main.async {
+                    moveScenesToBoneyard(idString)
+                }
+            }
+            return true
         }
         .tooltipContainer()
     }
@@ -756,6 +777,20 @@ struct ContentView: View {
             shootDays[di].scenes.removeAll { $0.id == scene.id }
             allScenes.append(scene)
             markDirty()
+        }
+    }
+
+    /// Drag target for the Boneyard: accepts the same "id" / "id,id,id" payload the
+    /// calendar's scene drags already use, finds each scene's current day, and hands it
+    /// to removeScene(_:from:) — landing it back in allScenes, where the existing
+    /// onChange(of: allScenes) -> recomputeSortedScenes() already re-sorts the Boneyard,
+    /// so a dropped scene always snaps into its correct place under whatever sort is active.
+    private func moveScenesToBoneyard(_ payload: String) {
+        let ids = payload.components(separatedBy: ",").compactMap { UUID(uuidString: $0) }
+        for id in ids {
+            guard let day = shootDays.first(where: { day in day.scenes.contains { $0.id == id } }),
+                  let scene = day.scenes.first(where: { $0.id == id }) else { continue }
+            removeScene(scene, from: day.id)
         }
     }
 
