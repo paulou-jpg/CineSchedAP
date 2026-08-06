@@ -86,6 +86,23 @@ struct FountainParser {
                 continue
             }
 
+            // Leading "#...#" scene number immediately followed by a scene
+            // heading (Highland-style, e.g. "#3A# INT. HOUSE - DAY") — checked
+            // before the generic "#" section-heading rule below, since both
+            // start with "#". A bare "# Some Note" with no closing "#" right
+            // after a number, or one not followed by a recognized heading
+            // prefix, still falls through to the section-heading rule as usual.
+            if trimmed.hasPrefix("#") {
+                let (strippedLeading, leadingNumber) = stripLeadingSceneNumber(trimmed)
+                if leadingNumber != nil, isSceneHeadingPrefix(strippedLeading) {
+                    let (heading, trailingNumber) = stripTrailingSceneNumber(strippedLeading)
+                    elements.append(FountainElement(kind: .sceneHeading, text: heading, lineIndex: i, sceneNumber: trailingNumber ?? leadingNumber))
+                    lastKind = .sceneHeading
+                    i += 1
+                    continue
+                }
+            }
+
             // Section headings (#) and synopses (=) are outline-only — the
             // Fountain spec excludes them from the printed/paginated document.
             if trimmed.hasPrefix("#") {
@@ -320,22 +337,47 @@ struct FountainParser {
         return upper == "INT" || upper == "EXT" || upper == "I/E" || upper == "EST"
     }
 
-    /// Extracts a trailing "#...#" scene number and returns the heading text
-    /// with it removed, e.g. "INT. HOUSE - DAY #3A#" -> ("INT. HOUSE - DAY", "3A").
+    /// Strips a trailing "#...#" scene number — the common Fountain/Final Draft
+    /// convention, e.g. "INT. HOUSE - DAY #3A#" -> ("INT. HOUSE - DAY", "3A").
+    private static func stripTrailingSceneNumber(_ text: String) -> (text: String, sceneNumber: String?) {
+        guard text.hasSuffix("#"), let lastHash = text.range(of: "#", options: .backwards) else {
+            return (text, nil)
+        }
+        let beforeLast = text[..<lastHash.lowerBound]
+        guard let firstHash = beforeLast.range(of: "#", options: .backwards) else {
+            return (text, nil)
+        }
+        let number = String(text[text.index(after: firstHash.lowerBound)..<lastHash.lowerBound])
+            .trimmingCharacters(in: .whitespaces)
+        guard !number.isEmpty else { return (text, nil) }
+        let rest = String(text[..<firstHash.lowerBound]).trimmingCharacters(in: .whitespaces)
+        return (rest, number)
+    }
+
+    /// Strips a leading "#...#" scene number — some tools (Highland) put the
+    /// marker before the heading instead of after it, e.g.
+    /// "#3A# INT. HOUSE - DAY" -> ("INT. HOUSE - DAY", "3A").
+    private static func stripLeadingSceneNumber(_ text: String) -> (text: String, sceneNumber: String?) {
+        guard text.hasPrefix("#") else { return (text, nil) }
+        let afterFirst = text.index(after: text.startIndex)
+        guard let secondHash = text.range(of: "#", range: afterFirst..<text.endIndex) else {
+            return (text, nil)
+        }
+        let number = String(text[afterFirst..<secondHash.lowerBound]).trimmingCharacters(in: .whitespaces)
+        guard !number.isEmpty else { return (text, nil) }
+        let rest = String(text[secondHash.upperBound...]).trimmingCharacters(in: .whitespaces)
+        return (rest, number)
+    }
+
+    /// Extracts a "#...#" scene number from either end of a heading line —
+    /// trailing takes priority in the rare case a line somehow has both.
     private static func extractSceneNumber(_ heading: String) -> (text: String, sceneNumber: String?) {
         let trimmed = heading.trimmingCharacters(in: .whitespaces)
-        guard trimmed.hasSuffix("#"),
-              let lastHash = trimmed.range(of: "#", options: .backwards) else {
-            return (trimmed, nil)
-        }
-        let beforeLast = trimmed[..<lastHash.lowerBound]
-        guard let firstHash = beforeLast.range(of: "#", options: .backwards) else {
-            return (trimmed, nil)
-        }
-        let number = String(trimmed[trimmed.index(after: firstHash.lowerBound)..<lastHash.lowerBound])
-            .trimmingCharacters(in: .whitespaces)
-        let withoutNumber = String(trimmed[..<firstHash.lowerBound]).trimmingCharacters(in: .whitespaces)
-        return (withoutNumber, number.isEmpty ? nil : number)
+        let trailing = stripTrailingSceneNumber(trimmed)
+        if trailing.sceneNumber != nil { return trailing }
+        let leading = stripLeadingSceneNumber(trimmed)
+        if leading.sceneNumber != nil { return leading }
+        return (trimmed, nil)
     }
 
     // MARK: - Transitions

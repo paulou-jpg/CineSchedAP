@@ -4,6 +4,7 @@
 import SwiftUI
 
 struct NewSceneInputView: View {
+    @Binding var newSceneNumber: String
     @Binding var newSceneTitle: String
     @Binding var newDuration:   String
     @Binding var newEstimate:   String
@@ -16,7 +17,12 @@ struct NewSceneInputView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            TextField("Scene Title", text: $newSceneTitle)
+            HStack(spacing: 6) {
+                TextField("#", text: $newSceneNumber)
+                    .frame(width: 60)
+                    .help("Scene number (optional)")
+                TextField("Scene Title", text: $newSceneTitle)
+            }
 
             // Duration field — optional for Custom strips
             VStack(alignment: .leading, spacing: 4) {
@@ -114,11 +120,13 @@ struct NewSceneInputView: View {
 
         allScenes.append(Scene(
             title:         newSceneTitle,
+            sceneNumber:   newSceneNumber.trimmingCharacters(in: .whitespaces),
             duration:      duration,
             estimatedTime: estimate,
             dayNightType:  newDayNightType
         ))
 
+        newSceneNumber  = ""
         newSceneTitle   = ""
         newDuration     = ""
         newEstimate     = ""

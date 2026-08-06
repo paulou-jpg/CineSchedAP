@@ -360,7 +360,8 @@ extension ContentView {
             for ps in parsed {
                 let type: DayNightType = ps.timeOfDay == .night ? .night : .day
                 allScenes.append(Scene(
-                    title:         "\(ps.sceneNumber). \(ps.location)",
+                    title:         ps.location,
+                    sceneNumber:   ps.sceneNumber,
                     duration:      1,
                     estimatedTime: 15,
                     dayNightType:  type
