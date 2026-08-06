@@ -102,6 +102,8 @@ struct CompactMonthCalendarView: View {
 
     // MARK: - Day Cell
 
+    private var dayNumbers: [UUID: Int] { productionDayNumbers(for: shootDays) }
+
     @ViewBuilder
     private func dayCell(day: ShootDay, dayIndex: Int) -> some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -143,6 +145,10 @@ struct CompactMonthCalendarView: View {
                                 .help("An actor scheduled this day is marked unavailable — see Production > Scan for Conflicts…")
                         }
                         Spacer()
+                        if let dayNumber = dayNumbers[day.id] {
+                            Text("Day \(dayNumber)")
+                                .font(.caption2).fontWeight(.semibold).foregroundColor(.secondary)
+                        }
                         Image(systemName: "doc.text")
                             .font(.system(size: 8))
                             .foregroundColor(.secondary)
@@ -259,7 +265,9 @@ struct CompactMonthCalendarView: View {
                 },
                 onExportPDF: { exportDay in
                     onCallSheetExport(exportDay)
-                }
+                },
+                dayNumber: dayNumbers[day.id],
+                totalProductionDays: dayNumbers.values.max() ?? 0
             )
         }
     }

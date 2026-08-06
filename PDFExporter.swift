@@ -35,6 +35,7 @@ class PDFExporter {
         let weeks      = groupDaysIntoWeeks(shootDays)
         let rowHeights = calculateIdealRowHeights(weeks: weeks)
         let cellWidth  = contentRect.width / 7
+        let dayNumbers = productionDayNumbers(for: shootDays)
 
         var pageNumber = 0
         var weekIndex  = 0
@@ -82,7 +83,7 @@ class PDFExporter {
                     width: contentRect.width,
                     height: rowHeight
                 )
-                drawWeekRow(week: weeks[weekIndex], in: rowRect, cellWidth: cellWidth)
+                drawWeekRow(week: weeks[weekIndex], in: rowRect, cellWidth: cellWidth, dayNumbers: dayNumbers)
                 currentY -= rowHeight
                 horizontalLines.append(currentY)
                 weekIndex += 1
@@ -140,7 +141,7 @@ class PDFExporter {
         }
     }
 
-    private static func drawWeekRow(week: [ShootDay?], in rowRect: CGRect, cellWidth: CGFloat) {
+    private static func drawWeekRow(week: [ShootDay?], in rowRect: CGRect, cellWidth: CGFloat, dayNumbers: [UUID: Int]) {
         for (col, day) in week.enumerated() {
             let cellRect = CGRect(
                 x: rowRect.minX + CGFloat(col) * cellWidth,
@@ -148,7 +149,7 @@ class PDFExporter {
                 width: cellWidth,
                 height: rowRect.height
             )
-            if let day = day { drawDay(day: day, in: cellRect) }
+            if let day = day { drawDay(day: day, in: cellRect, dayNumber: dayNumbers[day.id]) }
         }
     }
 
@@ -181,7 +182,7 @@ class PDFExporter {
         path.stroke()
     }
 
-    private static func drawDay(day: ShootDay, in rect: CGRect) {
+    private static func drawDay(day: ShootDay, in rect: CGRect, dayNumber: Int?) {
         let padding = CGFloat(8)
         let content = CGRect(
             x: rect.minX + padding, y: rect.minY + padding,
@@ -198,6 +199,18 @@ class PDFExporter {
         ]
         NSAttributedString(string: dateFormatter.string(from: day.date), attributes: dateAttr)
             .draw(in: CGRect(x: content.minX, y: content.maxY - 12, width: content.width, height: 12))
+
+        // Production day number, right-justified — matches the on-screen calendar
+        if let dayNumber {
+            let para = NSMutableParagraphStyle(); para.alignment = .right
+            let dayNumAttr: [NSAttributedString.Key: Any] = [
+                .font: NSFont.systemFont(ofSize: 8),
+                .foregroundColor: NSColor(white: 0.4, alpha: 1),
+                .paragraphStyle: para
+            ]
+            NSAttributedString(string: "Day \(dayNumber)", attributes: dayNumAttr)
+                .draw(in: CGRect(x: content.minX, y: content.maxY - 12, width: content.width, height: 12))
+        }
 
         // Scene strips
         let boxHeight:     CGFloat = 11

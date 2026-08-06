@@ -28,6 +28,24 @@ func isWeekend(_ date: Date) -> Bool {
     return weekday == 1 || weekday == 7
 }
 
+/// Maps each ShootDay's id to its "Day N" production-day number — the Nth
+/// day, in date order, that has at least one real scene (a scene with a
+/// scene number). Days with no scenes, or only notice/banner scenes (blank
+/// scene number, e.g. "DOWN FOR THANKSGIVING"), don't count and don't break
+/// the sequence — they're just skipped, not renumbered around.
+func productionDayNumbers(for shootDays: [ShootDay]) -> [UUID: Int] {
+    var result: [UUID: Int] = [:]
+    var counter = 0
+    for day in shootDays {
+        let hasRealScene = day.scenes.contains { !$0.sceneNumber.trimmingCharacters(in: .whitespaces).isEmpty }
+        if hasRealScene {
+            counter += 1
+            result[day.id] = counter
+        }
+    }
+    return result
+}
+
 /// Generates an array of ShootDays between two dates (inclusive).
 func generateDays(from startDate: Date, to endDate: Date) -> [ShootDay] {
     var calendar = Calendar(identifier: .gregorian)

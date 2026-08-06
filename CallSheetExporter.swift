@@ -30,7 +30,9 @@ class CallSheetExporter {
     static func generatePDF(
         shootDay: ShootDay,
         productionInfo: ProductionInfo,
-        projectTitle: String
+        projectTitle: String,
+        dayNumber: Int? = nil,
+        totalProductionDays: Int = 0
     ) -> Data? {
         let pdfData = NSMutableData()
         guard let consumer = CGDataConsumer(data: pdfData) else { return nil }
@@ -46,7 +48,8 @@ class CallSheetExporter {
         let resolvedCrew = shootDay.callSheet.resolvedCrew(productionInfo: productionInfo)
 
         var y = pageHeight - margin
-        y = drawPageHeader(y: y, shootDay: shootDay, productionInfo: productionInfo, projectTitle: projectTitle)
+        y = drawPageHeader(y: y, shootDay: shootDay, productionInfo: productionInfo, projectTitle: projectTitle,
+                            dayNumber: dayNumber, totalProductionDays: totalProductionDays)
         y = drawSection(y: y, title: "LOCATIONS",       content: { yy in drawLocations(y: yy, shootDay: shootDay) })
         y = drawSection(y: y, title: "SCENE BREAKDOWN", content: { yy in drawScenes(y: yy,    shootDay: shootDay) })
         y = drawSection(y: y, title: "CAST",            content: { yy in drawCast(y: yy,      shootDay: shootDay, productionInfo: productionInfo) })
@@ -65,7 +68,9 @@ class CallSheetExporter {
         y: CGFloat,
         shootDay: ShootDay,
         productionInfo: ProductionInfo,
-        projectTitle: String
+        projectTitle: String,
+        dayNumber: Int?,
+        totalProductionDays: Int
     ) -> CGFloat {
         var y = y
         if !productionInfo.companyName.isEmpty {
@@ -75,7 +80,8 @@ class CallSheetExporter {
         }
         y = drawText(projectTitle.isEmpty ? "Untitled Movie" : projectTitle,
                      font: fontTitle, color: colorBlack, x: margin, y: y, width: colWidth * 0.65)
-        let dateStr = "Call Sheet — \(fullFormattedDate(shootDay.date))"
+        let dayPrefix = dayNumber.map { "Day \($0) of \(totalProductionDays)   —   " } ?? ""
+        let dateStr = "\(dayPrefix)Call Sheet — \(fullFormattedDate(shootDay.date))"
         drawTextRight(dateStr, font: fontBody, color: colorMid, x: margin, y: y + 16, width: colWidth)
         y -= 6
         var infoLine = ""

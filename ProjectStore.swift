@@ -467,10 +467,13 @@ extension ContentView {
     }
 
     func showCallSheetPDFSavePanel(for day: ShootDay) {
+        let dayNumbers = productionDayNumbers(for: shootDays)
         guard let pdfData = CallSheetExporter.generatePDF(
             shootDay: day,
             productionInfo: productionInfo,
-            projectTitle: projectTitle
+            projectTitle: projectTitle,
+            dayNumber: dayNumbers[day.id],
+            totalProductionDays: dayNumbers.values.max() ?? 0
         ) else {
             alertMessage = "Failed to generate call sheet PDF."
             showingAlert = true

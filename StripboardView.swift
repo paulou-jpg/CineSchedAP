@@ -72,6 +72,8 @@ struct StripboardView: View {
 
     // MARK: - Day section
 
+    private var dayNumbers: [UUID: Int] { productionDayNumbers(for: shootDays) }
+
     @ViewBuilder
     private func daySection(day: ShootDay, dayIndex: Int) -> some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -196,6 +198,11 @@ struct StripboardView: View {
                             .font(.system(size: 9)).foregroundColor(.red)
                     }
                     Spacer()
+                    if let dayNumber = dayNumbers[day.id] {
+                        Text("Day \(dayNumber)")
+                            .font(.subheadline).fontWeight(.semibold).foregroundColor(.secondary)
+                    }
+                    Spacer()
                     if !day.scenes.isEmpty {
                         Text("\(day.scenes.count) scn · \(formattedEighths(day.totalDuration)) pgs")
                             .font(.caption).foregroundColor(.secondary)
@@ -228,7 +235,9 @@ struct StripboardView: View {
                 },
                 onExportPDF: { exportDay in
                     onCallSheetExport(exportDay)
-                }
+                },
+                dayNumber: dayNumbers[day.id],
+                totalProductionDays: dayNumbers.values.max() ?? 0
             )
         }
     }

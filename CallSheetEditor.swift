@@ -9,6 +9,10 @@ struct CallSheetEditor: View {
     @Binding var isPresented: Bool
     let onSave: () -> Void
     let onExportPDF: (ShootDay) -> Void
+    /// Nil when this day has no real (non-notice) scenes — it isn't a
+    /// counted production day, so there's nothing to show.
+    var dayNumber: Int? = nil
+    var totalProductionDays: Int = 0
 
     @State private var callTime:     String     = ""
     @State private var locations:    [Location] = []
@@ -53,7 +57,13 @@ struct CallSheetEditor: View {
             // MARK: Header
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Call Sheet").font(.title2).fontWeight(.bold)
+                    HStack(spacing: 8) {
+                        Text("Call Sheet").font(.title2).fontWeight(.bold)
+                        if let dayNumber {
+                            Text("Day \(dayNumber) of \(totalProductionDays)")
+                                .font(.subheadline).fontWeight(.semibold).foregroundColor(.secondary)
+                        }
+                    }
                     Text(formattedDate(shootDay.date)).font(.subheadline).foregroundColor(.secondary)
                 }
                 Spacer()
