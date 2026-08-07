@@ -214,6 +214,9 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: .csExportSchedulePDF)) { _ in
             showSchedulePDFSavePanel()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .csExportStripboardPDF)) { _ in
+            showStripboardPDFSavePanel()
+        }
         .onReceive(NotificationCenter.default.publisher(for: .csExportDaysOutOfDays)) { _ in
             showDaysOutOfDaysPDFSavePanel()
         }

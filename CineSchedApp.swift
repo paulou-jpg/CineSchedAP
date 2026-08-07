@@ -72,6 +72,10 @@ struct CineSchedApp: App {
                 }
                 .keyboardShortcut("e", modifiers: .command)
 
+                Button("Export Strip Schedule to PDF…") {
+                    NotificationCenter.default.post(name: .csExportStripboardPDF, object: nil)
+                }
+
                 Button("Export Days Out of Days…") {
                     NotificationCenter.default.post(name: .csExportDaysOutOfDays, object: nil)
                 }
