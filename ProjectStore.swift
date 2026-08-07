@@ -451,6 +451,22 @@ extension ContentView {
         )
     }
 
+    func showStripboardPDFSavePanel() {
+        guard let pdfData = StripboardPDFExporter.generatePDF(
+            shootDays: shootDays,
+            projectTitle: projectTitle,
+            productionInfo: productionInfo
+        ) else {
+            alertMessage = "Couldn't generate a strip schedule PDF — schedule at least one scene first."
+            showingAlert = true
+            return
+        }
+        showPDFSavePanel(
+            data: pdfData,
+            defaultName: sanitizeFilename("\(projectTitle.isEmpty ? "MovieSchedule" : projectTitle)_StripSchedule")
+        )
+    }
+
     func showDaysOutOfDaysPDFSavePanel() {
         guard let pdfData = DaysOutOfDaysExporter.generatePDF(
             shootDays: shootDays,
