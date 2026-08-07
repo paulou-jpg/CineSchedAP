@@ -114,24 +114,42 @@ struct StripboardView: View {
                 // without its own hit-testable area, the only thing below the last
                 // strip is the whole-day fallback delegate, which in a dense list
                 // (no big empty buffer like the calendar's fixed-height cells have)
-                // leaves almost no space to actually drop onto.
-                VStack(spacing: 0) {
-                    if shouldShowDropIndicator(dayId: day.id, position: day.scenes.count) {
-                        DropIndicatorView()
+                // leaves almost no space to actually drop onto. Production days skip
+                // this entirely — the EndOfDayStrip below takes over that job, so
+                // there's no separate gap revealing the card's background underneath.
+                if dayNumbers[day.id] == nil {
+                    VStack(spacing: 0) {
+                        if shouldShowDropIndicator(dayId: day.id, position: day.scenes.count) {
+                            DropIndicatorView()
+                        }
+                        Color.clear.frame(height: 14)
                     }
-                    Color.clear.frame(height: 14)
+                    .contentShape(Rectangle())
+                    .onDrop(of: [UTType.text.identifier], delegate: SceneDropDelegate(
+                        dayId: day.id,
+                        position: day.scenes.count,
+                        dropTargetDayId: $dropTargetDayId,
+                        dropTargetPosition: $dropTargetPosition,
+                        onDrop: { sceneId in handleSceneDrop(sceneId: sceneId, targetDayId: day.id, targetPosition: day.scenes.count) }
+                    ))
                 }
-                .contentShape(Rectangle())
-                .onDrop(of: [UTType.text.identifier], delegate: SceneDropDelegate(
-                    dayId: day.id,
-                    position: day.scenes.count,
-                    dropTargetDayId: $dropTargetDayId,
-                    dropTargetPosition: $dropTargetPosition,
-                    onDrop: { sceneId in handleSceneDrop(sceneId: sceneId, targetDayId: day.id, targetPosition: day.scenes.count) }
-                ))
             }
             .padding(.vertical, 4)
             .frame(maxWidth: .infinity, minHeight: day.scenes.isEmpty ? 36 : 0, alignment: .topLeading)
+
+            if let dayNumber = dayNumbers[day.id] {
+                if shouldShowDropIndicator(dayId: day.id, position: day.scenes.count) {
+                    DropIndicatorView()
+                }
+                EndOfDayStrip(day: day, dayNumber: dayNumber)
+                    .onDrop(of: [UTType.text.identifier], delegate: SceneDropDelegate(
+                        dayId: day.id,
+                        position: day.scenes.count,
+                        dropTargetDayId: $dropTargetDayId,
+                        dropTargetPosition: $dropTargetPosition,
+                        onDrop: { sceneId in handleSceneDrop(sceneId: sceneId, targetDayId: day.id, targetPosition: day.scenes.count) }
+                    ))
+            }
         }
         .background(
             ZStack {
@@ -420,6 +438,38 @@ struct StripboardView: View {
             selectedSceneIDs = [scene.id]
             lastSelectedSceneID = scene.id
         }
+    }
+}
+
+// MARK: - EndOfDayStrip
+
+/// Movie Magic's black "end of day" marker — closes out every production
+/// day's card with its number, full date, and running page/time totals, all
+/// read live off the ShootDay so it updates the moment scenes move, get
+/// edited, or the day itself gets rearranged.
+struct EndOfDayStrip: View {
+    @Environment(\.colorScheme) private var colorScheme
+    let day: ShootDay
+    let dayNumber: Int
+
+    /// Near-black in both modes, but lightened 10% toward white in light mode
+    /// — pure near-black read as too heavy against a light card background.
+    /// Left alone in dark mode, where it needs to stay the darkest element on
+    /// screen.
+    private var backgroundColor: Color {
+        let nearBlack = Color(white: 0.08)
+        return colorScheme == .dark ? nearBlack : nearBlack.lightened(by: 0.1)
+    }
+
+    var body: some View {
+        Text("-- END OF DAY #\(dayNumber) -- \(formattedFullDate(day.date)) -- \(formattedEighths(day.totalDuration)) pgs. -- Estimated time: \(formattedTimeHM(day.totalEstimatedTime))")
+            .font(.system(size: 11, weight: .bold, design: .monospaced))
+            .foregroundColor(.white)
+            .lineLimit(1)
+            .minimumScaleFactor(0.7)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.vertical, 9)
+            .background(backgroundColor)
     }
 }
 

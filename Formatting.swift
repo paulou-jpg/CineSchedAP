@@ -10,6 +10,24 @@ func formattedDate(_ date: Date) -> String {
     return formatter.string(from: date)
 }
 
+/// Returns a full date string, e.g. "Tuesday, October 6, 2026" — used by the
+/// stripboard's "END OF DAY" marker, where the calendar's abbreviated
+/// formattedDate would read too clipped for a full-width banner line.
+func formattedFullDate(_ date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "EEEE, MMMM d, yyyy"
+    return formatter.string(from: date)
+}
+
+/// Returns a minute count as "H:MM", e.g. 510 -> "8:30" — used by the
+/// stripboard's "END OF DAY" marker; distinct from formattedTime's word-based
+/// "8 hr 30 min" style used elsewhere.
+func formattedTimeHM(_ minutes: Int) -> String {
+    let hours = minutes / 60
+    let mins  = minutes % 60
+    return "\(hours):\(String(format: "%02d", mins))"
+}
+
 /// Returns an eighths-of-a-page count as a readable fraction string.
 func formattedEighths(_ totalEighths: Int) -> String {
     FractionParser.formatEighths(totalEighths)
