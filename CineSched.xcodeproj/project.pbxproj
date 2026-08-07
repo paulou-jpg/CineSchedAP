@@ -7,36 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0289E4C7CC8366D9C5B5D8AB /* ProjectStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_8356DBFD-155F-43BD-BE94-57884C71F6AE" /* ProjectStore.swift */; };
-		049A030939EE1AE49C891EDB /* Parsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_41C2ACB4-5C65-4F8E-9063-C406B4495BD4" /* Parsers.swift */; };
-		085D87A97F9F60547F2BD32F /* SelectAllTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_0CF1A22B-B9E6-46F5-B6B4-11905C60D29F" /* SelectAllTextField.swift */; };
-		085FE8BC5A5DEEDB910A58EF /* StripboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_729A8E58-A1B8-41E3-AF75-DEB92BC6E719" /* StripboardView.swift */; };
-		090504BC5FE645344FB43DD4 /* HoverTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_548EC260-4015-472D-8C15-823FFCABFB57" /* HoverTooltip.swift */; };
+		060C8546D92CEA60D0B533B4 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_C2D6E02D-82F1-479C-9230-8C1150101D47" /* Models.swift */; };
 		0A38DEACD1807462D8A3B4BA /* FountainPaginatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0210E9E1E402F2CC82F6DAD8 /* FountainPaginatorTests.swift */; };
+		0E5F4FA9A0484360538379C8 /* CallSheetExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_D07A3226-D76A-491F-985C-B61059B8F0B8" /* CallSheetExporter.swift */; };
 		0FAD5ADC6AC1E5D44D4B613E /* FountainParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6A7DD04348E0C7034597E2 /* FountainParserTests.swift */; };
-		1202D7BBD531F12AC3B917CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_C15D8888-F576-4B8A-9B32-52E37FAF177A" /* ContentView.swift */; };
-		2F70A7BF7D54FC568A10F7CD /* CineSchedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_A2DD0D4A-B604-4513-95BD-26DDAAF22538" /* CineSchedApp.swift */; };
-		3F86C28226610C478E9EBF37 /* FountainImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_BC1AA24A-5299-47D2-B94E-B5C5F788D826" /* FountainImporter.swift */; };
-		40E1A53EA53629F40C286CD2 /* CallSheetExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_56F63CC8-A546-43DA-B8EF-131CADF64D55" /* CallSheetExporter.swift */; };
-		44F0B9708F7D001CE0D71F44 /* SendToDaySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_76C597E6-29CC-4756-B3A6-D5C5E86D2867" /* SendToDaySheet.swift */; };
-		4832B69B5E0B83D670CE4CF6 /* ProductionSetupSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_982066FE-1F02-4445-94B5-700092F63ABC" /* ProductionSetupSheet.swift */; };
-		58B72157A4DD479D1FC75834 /* SceneEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_7FE6AC3C-D277-4CAB-9304-52D2DB1A8A45" /* SceneEditSheet.swift */; };
-		6D9B86649F4AFA5FB0C2074F /* FountainParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_B2E1D3C5-0FD3-48BB-8420-63C156A30C9C" /* FountainParser.swift */; };
-		7AD7F6C24F36D9A22BDC34DA /* ConflictScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_4D652427-E998-4228-8A01-8853D1CB81EA" /* ConflictScanner.swift */; };
-		7B84B01C6EB54EA656A21941 /* ImportSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_676C2B2A-4F40-49BB-868C-64B24C47C839" /* ImportSummaryView.swift */; };
-		856055D464661FDD01D68781 /* FountainPaginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_1FE0253C-4836-4890-A48E-9F5A9FD5A8D4" /* FountainPaginator.swift */; };
-		92646C0ADD1E61648B281293 /* HighlandArchiveReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_C0159A35-3ECE-4A26-AF8A-C608F16824E6" /* HighlandArchiveReader.swift */; };
-		95273DE701DFABA1DF06E044 /* PDFExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_01B022D8-B662-4DA4-82B7-C8F6745DBB59" /* PDFExporter.swift */; };
-		965F7F8AEE5F57C29EE67AE2 /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_75146C89-F0A8-4894-9AA0-16E7C77AC219" /* Formatting.swift */; };
-		AF2204B7F2DCA4217C4731BF /* DaysOutOfDaysExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_06B966C0-BD75-423E-A65F-7D226A22910F" /* DaysOutOfDaysExporter.swift */; };
-		B71E0B927E02AB7AE3884CE2 /* CallSheetEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_D3AAE465-9151-4CA1-BCEC-56387FAE8AC1" /* CallSheetEditor.swift */; };
-		B8CD203733F6FD46AB7CE494 /* RecentFilesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_AEC7ECDD-A2A3-488E-8607-36159251490B" /* RecentFilesStore.swift */; };
-		C4193CB617896E23A20AA986 /* ConflictReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_2BBD7F80-8217-4BD8-BD6A-EEDCAB01A0A7" /* ConflictReportSheet.swift */; };
-		C7E342772F90DFF25702FC4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = "TEMP_FDC01EA1-1B32-4A97-8C73-891EA592AFB5" /* Assets.xcassets */; };
-		CC63FC599C1800AD5DED1C5A /* NewSceneInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_62E2F1C7-A774-48F7-82B6-5CE1E5BDB214" /* NewSceneInputView.swift */; };
-		D2AF300DA8146CB2020F5A21 /* FinalDraftParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_C51AB128-EDAF-4F09-9978-FD3CE777594F" /* FinalDraftParser.swift */; };
-		E17943CACA505B949636B617 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_FA546271-D5C3-456F-BFDB-126C820C10E9" /* CalendarView.swift */; };
-		E6FDFDCB4C336EE26CC91985 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_A2609315-84D7-4D92-8CB2-0CE516BDA9B2" /* Models.swift */; };
+		1471772856CB137192E27E37 /* CineSchedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_243DAF4E-1421-4187-82C1-BAC262FF5460" /* CineSchedApp.swift */; };
+		1CDCDB1AACD584CA8BF6F833 /* ConflictScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_D9F1474F-2E89-446F-BE3C-D5486D454E49" /* ConflictScanner.swift */; };
+		23F8F1B95828D991A94670A2 /* ConflictReportSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_DFAEBB80-D947-4761-8731-251E2D9F6695" /* ConflictReportSheet.swift */; };
+		262727BEBCC7A94C1724A03D /* SendToDaySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_D1005121-717F-4C76-8592-E65BF82D067B" /* SendToDaySheet.swift */; };
+		2AC51D31EFA35FE8EB8AD85E /* RecentFilesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_38AABFFE-BFDA-48FF-8884-B14A5F56336C" /* RecentFilesStore.swift */; };
+		42E161709E36D5EB96B04E44 /* Parsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_CECAD6D7-21F7-4998-9A51-240C2C91EE56" /* Parsers.swift */; };
+		45BAF96EC400B9CBDB329CAB /* FinalDraftParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_C8EAA57D-AF26-4984-B92D-A82790CF85F2" /* FinalDraftParser.swift */; };
+		4F35A1FD513DAB120B45249F /* HoverTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_65A8CB93-AAF3-45F5-BE07-CEF5B720E5B7" /* HoverTooltip.swift */; };
+		5944EBB7447BABA6F671D175 /* FountainParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_CDC66D8D-E5DE-4F46-8BFA-6DF75C7CF8B9" /* FountainParser.swift */; };
+		639AC9381FC26253BE259D73 /* ProductionSetupSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_6C949786-98AF-4C14-A4F9-BC3EA343DEDE" /* ProductionSetupSheet.swift */; };
+		660E5D89CBBB1C33DC65675F /* ProjectStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_8A3C9DCF-0971-468C-85D4-846FFFDBD151" /* ProjectStore.swift */; };
+		7BF7EA8A53D925DFB637256E /* FountainPaginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_F7141913-69E1-4ADF-9A1F-22F56F495257" /* FountainPaginator.swift */; };
+		836218815FF3038324AAFF0E /* HighlandArchiveReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_06398885-774D-4754-A9C1-BAC84C3E609F" /* HighlandArchiveReader.swift */; };
+		93E528B8EE89A50F84E3A366 /* PDFExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_B428F7EA-9B8A-414F-B36E-A9521D47190B" /* PDFExporter.swift */; };
+		A5DA73DAC14B1B1583DD3FF5 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_1230B742-1AEF-4854-96E1-083287955C93" /* CalendarView.swift */; };
+		AECF547315532DC355314E80 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_8F837B6C-868A-4069-AF3F-C486FCD08804" /* ContentView.swift */; };
+		B0F185D1212E803648D7C3DC /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_E3E9F562-C61C-4ADD-84A2-EAE3528506CE" /* Formatting.swift */; };
+		B247EDDEE1604C0A503EDEB8 /* SelectAllTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_17660E26-A1F4-4B8E-9316-73AFE5E9CC17" /* SelectAllTextField.swift */; };
+		BEDAFB1EDE850D3058DAFE7D /* SceneEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_393D6874-C2AF-4FA1-8BC7-1825A3DECCC9" /* SceneEditSheet.swift */; };
+		C24666FFBB3956446D007C77 /* CallSheetEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_2CE5B712-4762-4ABA-A8B0-753842F0F623" /* CallSheetEditor.swift */; };
+		C450FFA87576EA68EF76CBA7 /* FountainImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_0AA5E142-5D76-4EA1-B741-B66649B34034" /* FountainImporter.swift */; };
+		CA5894763FB67C2F6AF67D23 /* NewSceneInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_CD14D21E-E5E3-4BEE-8783-B18AC089B529" /* NewSceneInputView.swift */; };
+		D15F538D97D0295EAB99A2DB /* ImportSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_8E45F41A-3A4F-4ECA-B93B-BC774585D4B6" /* ImportSummaryView.swift */; };
+		D18ADCDE4C6A3D3D81FD7C94 /* DaysOutOfDaysExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_A73661EA-2C63-4314-A131-5DD03B28EA30" /* DaysOutOfDaysExporter.swift */; };
+		ED2F90DB87A0D3B66EBED8A7 /* StripboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_C15AED0D-22D5-49FB-8740-6CDDBF65ECD8" /* StripboardView.swift */; };
+		F669872B44FC670DF8F429BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = "TEMP_4A7E1BCB-07DD-46AA-9754-FD6E45B38D77" /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,37 +54,37 @@
 		16A5CFF5763599F9FF5CD187 /* CineSchedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CineSchedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A33415770FEB25F2001ED0E4 /* CineSched.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CineSched.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6A7DD04348E0C7034597E2 /* FountainParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FountainParserTests.swift; sourceTree = "<group>"; };
-		"TEMP_01B022D8-B662-4DA4-82B7-C8F6745DBB59" /* PDFExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFExporter.swift; sourceTree = "<group>"; };
-		"TEMP_06B966C0-BD75-423E-A65F-7D226A22910F" /* DaysOutOfDaysExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysOutOfDaysExporter.swift; sourceTree = "<group>"; };
-		"TEMP_0CF1A22B-B9E6-46F5-B6B4-11905C60D29F" /* SelectAllTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAllTextField.swift; sourceTree = "<group>"; };
-		"TEMP_1FE0253C-4836-4890-A48E-9F5A9FD5A8D4" /* FountainPaginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FountainPaginator.swift; sourceTree = "<group>"; };
-		"TEMP_2BBD7F80-8217-4BD8-BD6A-EEDCAB01A0A7" /* ConflictReportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictReportSheet.swift; sourceTree = "<group>"; };
-		"TEMP_41C2ACB4-5C65-4F8E-9063-C406B4495BD4" /* Parsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsers.swift; sourceTree = "<group>"; };
-		"TEMP_4D652427-E998-4228-8A01-8853D1CB81EA" /* ConflictScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictScanner.swift; sourceTree = "<group>"; };
-		"TEMP_508BE0EB-6B67-4576-B5D8-AEF2BF54583C" /* CineSched.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CineSched.entitlements; sourceTree = "<group>"; };
-		"TEMP_548EC260-4015-472D-8C15-823FFCABFB57" /* HoverTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverTooltip.swift; sourceTree = "<group>"; };
-		"TEMP_56F63CC8-A546-43DA-B8EF-131CADF64D55" /* CallSheetExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallSheetExporter.swift; sourceTree = "<group>"; };
-		"TEMP_62E2F1C7-A774-48F7-82B6-5CE1E5BDB214" /* NewSceneInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSceneInputView.swift; sourceTree = "<group>"; };
-		"TEMP_676C2B2A-4F40-49BB-868C-64B24C47C839" /* ImportSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSummaryView.swift; sourceTree = "<group>"; };
-		"TEMP_729A8E58-A1B8-41E3-AF75-DEB92BC6E719" /* StripboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripboardView.swift; sourceTree = "<group>"; };
-		"TEMP_75146C89-F0A8-4894-9AA0-16E7C77AC219" /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
-		"TEMP_76C597E6-29CC-4756-B3A6-D5C5E86D2867" /* SendToDaySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendToDaySheet.swift; sourceTree = "<group>"; };
-		"TEMP_7FE6AC3C-D277-4CAB-9304-52D2DB1A8A45" /* SceneEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditSheet.swift; sourceTree = "<group>"; };
-		"TEMP_8356DBFD-155F-43BD-BE94-57884C71F6AE" /* ProjectStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStore.swift; sourceTree = "<group>"; };
-		"TEMP_87DD2A09-ECCE-4CA5-8DC9-02A957ECF1EF" /* .gitignore */ = {isa = PBXFileReference; path = .gitignore; sourceTree = "<group>"; };
-		"TEMP_982066FE-1F02-4445-94B5-700092F63ABC" /* ProductionSetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionSetupSheet.swift; sourceTree = "<group>"; };
-		"TEMP_A2609315-84D7-4D92-8CB2-0CE516BDA9B2" /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		"TEMP_A2DD0D4A-B604-4513-95BD-26DDAAF22538" /* CineSchedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CineSchedApp.swift; sourceTree = "<group>"; };
-		"TEMP_AEC7ECDD-A2A3-488E-8607-36159251490B" /* RecentFilesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFilesStore.swift; sourceTree = "<group>"; };
-		"TEMP_B2E1D3C5-0FD3-48BB-8420-63C156A30C9C" /* FountainParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FountainParser.swift; sourceTree = "<group>"; };
-		"TEMP_BC1AA24A-5299-47D2-B94E-B5C5F788D826" /* FountainImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FountainImporter.swift; sourceTree = "<group>"; };
-		"TEMP_C0159A35-3ECE-4A26-AF8A-C608F16824E6" /* HighlandArchiveReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlandArchiveReader.swift; sourceTree = "<group>"; };
-		"TEMP_C15D8888-F576-4B8A-9B32-52E37FAF177A" /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		"TEMP_C51AB128-EDAF-4F09-9978-FD3CE777594F" /* FinalDraftParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalDraftParser.swift; sourceTree = "<group>"; };
-		"TEMP_D3AAE465-9151-4CA1-BCEC-56387FAE8AC1" /* CallSheetEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallSheetEditor.swift; sourceTree = "<group>"; };
-		"TEMP_FA546271-D5C3-456F-BFDB-126C820C10E9" /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		"TEMP_FA8DFE5B-8697-4F5C-A75D-3E25F7B3ACF0" /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		"TEMP_FDC01EA1-1B32-4A97-8C73-891EA592AFB5" /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		"TEMP_06398885-774D-4754-A9C1-BAC84C3E609F" /* HighlandArchiveReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlandArchiveReader.swift; sourceTree = "<group>"; };
+		"TEMP_0AA5E142-5D76-4EA1-B741-B66649B34034" /* FountainImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FountainImporter.swift; sourceTree = "<group>"; };
+		"TEMP_1230B742-1AEF-4854-96E1-083287955C93" /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		"TEMP_17660E26-A1F4-4B8E-9316-73AFE5E9CC17" /* SelectAllTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAllTextField.swift; sourceTree = "<group>"; };
+		"TEMP_243DAF4E-1421-4187-82C1-BAC262FF5460" /* CineSchedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CineSchedApp.swift; sourceTree = "<group>"; };
+		"TEMP_2CE5B712-4762-4ABA-A8B0-753842F0F623" /* CallSheetEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallSheetEditor.swift; sourceTree = "<group>"; };
+		"TEMP_38AABFFE-BFDA-48FF-8884-B14A5F56336C" /* RecentFilesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFilesStore.swift; sourceTree = "<group>"; };
+		"TEMP_393D6874-C2AF-4FA1-8BC7-1825A3DECCC9" /* SceneEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditSheet.swift; sourceTree = "<group>"; };
+		"TEMP_4A7E1BCB-07DD-46AA-9754-FD6E45B38D77" /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		"TEMP_65A8CB93-AAF3-45F5-BE07-CEF5B720E5B7" /* HoverTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverTooltip.swift; sourceTree = "<group>"; };
+		"TEMP_6C949786-98AF-4C14-A4F9-BC3EA343DEDE" /* ProductionSetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionSetupSheet.swift; sourceTree = "<group>"; };
+		"TEMP_8A3C9DCF-0971-468C-85D4-846FFFDBD151" /* ProjectStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStore.swift; sourceTree = "<group>"; };
+		"TEMP_8E45F41A-3A4F-4ECA-B93B-BC774585D4B6" /* ImportSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSummaryView.swift; sourceTree = "<group>"; };
+		"TEMP_8F837B6C-868A-4069-AF3F-C486FCD08804" /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		"TEMP_A73661EA-2C63-4314-A131-5DD03B28EA30" /* DaysOutOfDaysExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysOutOfDaysExporter.swift; sourceTree = "<group>"; };
+		"TEMP_B428F7EA-9B8A-414F-B36E-A9521D47190B" /* PDFExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFExporter.swift; sourceTree = "<group>"; };
+		"TEMP_B464AE7F-F757-4CCC-987F-8B1B41F3C223" /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		"TEMP_BAA62FB8-ABCC-4FF4-BCAA-0D95F274442B" /* .gitignore */ = {isa = PBXFileReference; path = .gitignore; sourceTree = "<group>"; };
+		"TEMP_C15AED0D-22D5-49FB-8740-6CDDBF65ECD8" /* StripboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripboardView.swift; sourceTree = "<group>"; };
+		"TEMP_C2D6E02D-82F1-479C-9230-8C1150101D47" /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		"TEMP_C8EAA57D-AF26-4984-B92D-A82790CF85F2" /* FinalDraftParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalDraftParser.swift; sourceTree = "<group>"; };
+		"TEMP_CD14D21E-E5E3-4BEE-8783-B18AC089B529" /* NewSceneInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSceneInputView.swift; sourceTree = "<group>"; };
+		"TEMP_CDC66D8D-E5DE-4F46-8BFA-6DF75C7CF8B9" /* FountainParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FountainParser.swift; sourceTree = "<group>"; };
+		"TEMP_CECAD6D7-21F7-4998-9A51-240C2C91EE56" /* Parsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsers.swift; sourceTree = "<group>"; };
+		"TEMP_D07A3226-D76A-491F-985C-B61059B8F0B8" /* CallSheetExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallSheetExporter.swift; sourceTree = "<group>"; };
+		"TEMP_D1005121-717F-4C76-8592-E65BF82D067B" /* SendToDaySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendToDaySheet.swift; sourceTree = "<group>"; };
+		"TEMP_D9F1474F-2E89-446F-BE3C-D5486D454E49" /* ConflictScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictScanner.swift; sourceTree = "<group>"; };
+		"TEMP_DFAEBB80-D947-4761-8731-251E2D9F6695" /* ConflictReportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictReportSheet.swift; sourceTree = "<group>"; };
+		"TEMP_E3E9F562-C61C-4ADD-84A2-EAE3528506CE" /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
+		"TEMP_F7141913-69E1-4ADF-9A1F-22F56F495257" /* FountainPaginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FountainPaginator.swift; sourceTree = "<group>"; };
+		"TEMP_FC44BB23-48A9-42A4-B663-A3D55A5FF65D" /* CineSched.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CineSched.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -114,40 +114,40 @@
 			);
 			sourceTree = "<group>";
 		};
-		"TEMP_E2D4E7FF-A594-4816-9C46-69CA7CF2571A" /* . */ = {
+		"TEMP_97588847-B369-4585-8641-DE2B74A1AF1F" /* . */ = {
 			isa = PBXGroup;
 			children = (
-				"TEMP_7FE6AC3C-D277-4CAB-9304-52D2DB1A8A45" /* SceneEditSheet.swift */,
-				"TEMP_AEC7ECDD-A2A3-488E-8607-36159251490B" /* RecentFilesStore.swift */,
-				"TEMP_06B966C0-BD75-423E-A65F-7D226A22910F" /* DaysOutOfDaysExporter.swift */,
-				"TEMP_A2DD0D4A-B604-4513-95BD-26DDAAF22538" /* CineSchedApp.swift */,
-				"TEMP_62E2F1C7-A774-48F7-82B6-5CE1E5BDB214" /* NewSceneInputView.swift */,
-				"TEMP_FDC01EA1-1B32-4A97-8C73-891EA592AFB5" /* Assets.xcassets */,
-				"TEMP_D3AAE465-9151-4CA1-BCEC-56387FAE8AC1" /* CallSheetEditor.swift */,
-				"TEMP_676C2B2A-4F40-49BB-868C-64B24C47C839" /* ImportSummaryView.swift */,
-				"TEMP_56F63CC8-A546-43DA-B8EF-131CADF64D55" /* CallSheetExporter.swift */,
-				"TEMP_C51AB128-EDAF-4F09-9978-FD3CE777594F" /* FinalDraftParser.swift */,
-				"TEMP_B2E1D3C5-0FD3-48BB-8420-63C156A30C9C" /* FountainParser.swift */,
-				"TEMP_01B022D8-B662-4DA4-82B7-C8F6745DBB59" /* PDFExporter.swift */,
-				"TEMP_548EC260-4015-472D-8C15-823FFCABFB57" /* HoverTooltip.swift */,
-				"TEMP_8356DBFD-155F-43BD-BE94-57884C71F6AE" /* ProjectStore.swift */,
-				"TEMP_87DD2A09-ECCE-4CA5-8DC9-02A957ECF1EF" /* .gitignore */,
-				"TEMP_A2609315-84D7-4D92-8CB2-0CE516BDA9B2" /* Models.swift */,
-				"TEMP_4D652427-E998-4228-8A01-8853D1CB81EA" /* ConflictScanner.swift */,
-				"TEMP_41C2ACB4-5C65-4F8E-9063-C406B4495BD4" /* Parsers.swift */,
-				"TEMP_2BBD7F80-8217-4BD8-BD6A-EEDCAB01A0A7" /* ConflictReportSheet.swift */,
-				"TEMP_1FE0253C-4836-4890-A48E-9F5A9FD5A8D4" /* FountainPaginator.swift */,
-				"TEMP_C0159A35-3ECE-4A26-AF8A-C608F16824E6" /* HighlandArchiveReader.swift */,
-				"TEMP_508BE0EB-6B67-4576-B5D8-AEF2BF54583C" /* CineSched.entitlements */,
-				"TEMP_BC1AA24A-5299-47D2-B94E-B5C5F788D826" /* FountainImporter.swift */,
-				"TEMP_75146C89-F0A8-4894-9AA0-16E7C77AC219" /* Formatting.swift */,
-				"TEMP_76C597E6-29CC-4756-B3A6-D5C5E86D2867" /* SendToDaySheet.swift */,
-				"TEMP_729A8E58-A1B8-41E3-AF75-DEB92BC6E719" /* StripboardView.swift */,
-				"TEMP_C15D8888-F576-4B8A-9B32-52E37FAF177A" /* ContentView.swift */,
-				"TEMP_982066FE-1F02-4445-94B5-700092F63ABC" /* ProductionSetupSheet.swift */,
-				"TEMP_FA8DFE5B-8697-4F5C-A75D-3E25F7B3ACF0" /* Info.plist */,
-				"TEMP_FA546271-D5C3-456F-BFDB-126C820C10E9" /* CalendarView.swift */,
-				"TEMP_0CF1A22B-B9E6-46F5-B6B4-11905C60D29F" /* SelectAllTextField.swift */,
+				"TEMP_393D6874-C2AF-4FA1-8BC7-1825A3DECCC9" /* SceneEditSheet.swift */,
+				"TEMP_38AABFFE-BFDA-48FF-8884-B14A5F56336C" /* RecentFilesStore.swift */,
+				"TEMP_A73661EA-2C63-4314-A131-5DD03B28EA30" /* DaysOutOfDaysExporter.swift */,
+				"TEMP_243DAF4E-1421-4187-82C1-BAC262FF5460" /* CineSchedApp.swift */,
+				"TEMP_CD14D21E-E5E3-4BEE-8783-B18AC089B529" /* NewSceneInputView.swift */,
+				"TEMP_4A7E1BCB-07DD-46AA-9754-FD6E45B38D77" /* Assets.xcassets */,
+				"TEMP_2CE5B712-4762-4ABA-A8B0-753842F0F623" /* CallSheetEditor.swift */,
+				"TEMP_8E45F41A-3A4F-4ECA-B93B-BC774585D4B6" /* ImportSummaryView.swift */,
+				"TEMP_D07A3226-D76A-491F-985C-B61059B8F0B8" /* CallSheetExporter.swift */,
+				"TEMP_C8EAA57D-AF26-4984-B92D-A82790CF85F2" /* FinalDraftParser.swift */,
+				"TEMP_CDC66D8D-E5DE-4F46-8BFA-6DF75C7CF8B9" /* FountainParser.swift */,
+				"TEMP_B428F7EA-9B8A-414F-B36E-A9521D47190B" /* PDFExporter.swift */,
+				"TEMP_65A8CB93-AAF3-45F5-BE07-CEF5B720E5B7" /* HoverTooltip.swift */,
+				"TEMP_8A3C9DCF-0971-468C-85D4-846FFFDBD151" /* ProjectStore.swift */,
+				"TEMP_BAA62FB8-ABCC-4FF4-BCAA-0D95F274442B" /* .gitignore */,
+				"TEMP_C2D6E02D-82F1-479C-9230-8C1150101D47" /* Models.swift */,
+				"TEMP_D9F1474F-2E89-446F-BE3C-D5486D454E49" /* ConflictScanner.swift */,
+				"TEMP_CECAD6D7-21F7-4998-9A51-240C2C91EE56" /* Parsers.swift */,
+				"TEMP_DFAEBB80-D947-4761-8731-251E2D9F6695" /* ConflictReportSheet.swift */,
+				"TEMP_F7141913-69E1-4ADF-9A1F-22F56F495257" /* FountainPaginator.swift */,
+				"TEMP_06398885-774D-4754-A9C1-BAC84C3E609F" /* HighlandArchiveReader.swift */,
+				"TEMP_FC44BB23-48A9-42A4-B663-A3D55A5FF65D" /* CineSched.entitlements */,
+				"TEMP_0AA5E142-5D76-4EA1-B741-B66649B34034" /* FountainImporter.swift */,
+				"TEMP_E3E9F562-C61C-4ADD-84A2-EAE3528506CE" /* Formatting.swift */,
+				"TEMP_D1005121-717F-4C76-8592-E65BF82D067B" /* SendToDaySheet.swift */,
+				"TEMP_C15AED0D-22D5-49FB-8740-6CDDBF65ECD8" /* StripboardView.swift */,
+				"TEMP_8F837B6C-868A-4069-AF3F-C486FCD08804" /* ContentView.swift */,
+				"TEMP_6C949786-98AF-4C14-A4F9-BC3EA343DEDE" /* ProductionSetupSheet.swift */,
+				"TEMP_B464AE7F-F757-4CCC-987F-8B1B41F3C223" /* Info.plist */,
+				"TEMP_1230B742-1AEF-4854-96E1-083287955C93" /* CalendarView.swift */,
+				"TEMP_17660E26-A1F4-4B8E-9316-73AFE5E9CC17" /* SelectAllTextField.swift */,
 			);
 			name = .;
 			path = .;
@@ -236,7 +236,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7E342772F90DFF25702FC4A /* Assets.xcassets in Resources */,
+				F669872B44FC670DF8F429BB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,33 +247,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E17943CACA505B949636B617 /* CalendarView.swift in Sources */,
-				B71E0B927E02AB7AE3884CE2 /* CallSheetEditor.swift in Sources */,
-				40E1A53EA53629F40C286CD2 /* CallSheetExporter.swift in Sources */,
-				2F70A7BF7D54FC568A10F7CD /* CineSchedApp.swift in Sources */,
-				C4193CB617896E23A20AA986 /* ConflictReportSheet.swift in Sources */,
-				7AD7F6C24F36D9A22BDC34DA /* ConflictScanner.swift in Sources */,
-				1202D7BBD531F12AC3B917CA /* ContentView.swift in Sources */,
-				AF2204B7F2DCA4217C4731BF /* DaysOutOfDaysExporter.swift in Sources */,
-				D2AF300DA8146CB2020F5A21 /* FinalDraftParser.swift in Sources */,
-				965F7F8AEE5F57C29EE67AE2 /* Formatting.swift in Sources */,
-				3F86C28226610C478E9EBF37 /* FountainImporter.swift in Sources */,
-				856055D464661FDD01D68781 /* FountainPaginator.swift in Sources */,
-				6D9B86649F4AFA5FB0C2074F /* FountainParser.swift in Sources */,
-				92646C0ADD1E61648B281293 /* HighlandArchiveReader.swift in Sources */,
-				090504BC5FE645344FB43DD4 /* HoverTooltip.swift in Sources */,
-				7B84B01C6EB54EA656A21941 /* ImportSummaryView.swift in Sources */,
-				E6FDFDCB4C336EE26CC91985 /* Models.swift in Sources */,
-				CC63FC599C1800AD5DED1C5A /* NewSceneInputView.swift in Sources */,
-				95273DE701DFABA1DF06E044 /* PDFExporter.swift in Sources */,
-				049A030939EE1AE49C891EDB /* Parsers.swift in Sources */,
-				4832B69B5E0B83D670CE4CF6 /* ProductionSetupSheet.swift in Sources */,
-				0289E4C7CC8366D9C5B5D8AB /* ProjectStore.swift in Sources */,
-				B8CD203733F6FD46AB7CE494 /* RecentFilesStore.swift in Sources */,
-				58B72157A4DD479D1FC75834 /* SceneEditSheet.swift in Sources */,
-				085D87A97F9F60547F2BD32F /* SelectAllTextField.swift in Sources */,
-				44F0B9708F7D001CE0D71F44 /* SendToDaySheet.swift in Sources */,
-				085FE8BC5A5DEEDB910A58EF /* StripboardView.swift in Sources */,
+				A5DA73DAC14B1B1583DD3FF5 /* CalendarView.swift in Sources */,
+				C24666FFBB3956446D007C77 /* CallSheetEditor.swift in Sources */,
+				0E5F4FA9A0484360538379C8 /* CallSheetExporter.swift in Sources */,
+				1471772856CB137192E27E37 /* CineSchedApp.swift in Sources */,
+				23F8F1B95828D991A94670A2 /* ConflictReportSheet.swift in Sources */,
+				1CDCDB1AACD584CA8BF6F833 /* ConflictScanner.swift in Sources */,
+				AECF547315532DC355314E80 /* ContentView.swift in Sources */,
+				D18ADCDE4C6A3D3D81FD7C94 /* DaysOutOfDaysExporter.swift in Sources */,
+				45BAF96EC400B9CBDB329CAB /* FinalDraftParser.swift in Sources */,
+				B0F185D1212E803648D7C3DC /* Formatting.swift in Sources */,
+				C450FFA87576EA68EF76CBA7 /* FountainImporter.swift in Sources */,
+				7BF7EA8A53D925DFB637256E /* FountainPaginator.swift in Sources */,
+				5944EBB7447BABA6F671D175 /* FountainParser.swift in Sources */,
+				836218815FF3038324AAFF0E /* HighlandArchiveReader.swift in Sources */,
+				4F35A1FD513DAB120B45249F /* HoverTooltip.swift in Sources */,
+				D15F538D97D0295EAB99A2DB /* ImportSummaryView.swift in Sources */,
+				060C8546D92CEA60D0B533B4 /* Models.swift in Sources */,
+				CA5894763FB67C2F6AF67D23 /* NewSceneInputView.swift in Sources */,
+				93E528B8EE89A50F84E3A366 /* PDFExporter.swift in Sources */,
+				42E161709E36D5EB96B04E44 /* Parsers.swift in Sources */,
+				639AC9381FC26253BE259D73 /* ProductionSetupSheet.swift in Sources */,
+				660E5D89CBBB1C33DC65675F /* ProjectStore.swift in Sources */,
+				2AC51D31EFA35FE8EB8AD85E /* RecentFilesStore.swift in Sources */,
+				BEDAFB1EDE850D3058DAFE7D /* SceneEditSheet.swift in Sources */,
+				B247EDDEE1604C0A503EDEB8 /* SelectAllTextField.swift in Sources */,
+				262727BEBCC7A94C1724A03D /* SendToDaySheet.swift in Sources */,
+				ED2F90DB87A0D3B66EBED8A7 /* StripboardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
